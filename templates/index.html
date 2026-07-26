@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seguridad Ciudadana - Municipalidad Distrital de Ascensión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-gold: #FFD700;
+            --neon-gold-glow: rgba(255, 215, 0, 0.7);
+            --dark-glass: rgba(5, 14, 28, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, rgba(3, 10, 20, 0.85), rgba(8, 24, 48, 0.92)), 
+                        url("{{ url_for('static', filename='img/fondo_serenazgo.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* Contenedor Circular Principal */
+        .main-wrapper {
+            width: 410px;
+            height: 410px;
+            max-width: 95vw;
+            max-height: 95vw;
+            background: var(--dark-glass);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            color: #FFFFFF;
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.92), 
+                        0 0 40px var(--neon-gold-glow),
+                        inset 0 0 35px rgba(255, 215, 0, 0.22);
+            padding: 30px 24px;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--neon-gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+
+        .main-wrapper:hover {
+            box-shadow: 0 0 75px rgba(0, 0, 0, 0.98), 
+                        0 0 50px rgba(255, 215, 0, 0.85),
+                        inset 0 0 45px rgba(255, 215, 0, 0.38);
+        }
+
+        /* Logotipo de Serenazgo (Más grande y proporcionado) */
+        .logo-container img {
+            max-width: 78px;
+            height: auto;
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 12px rgba(255,215,0,0.7));
+            transition: transform 0.35s ease;
+        }
+
+        .main-wrapper:hover .logo-container img {
+            transform: scale(1.08);
+        }
+
+        /* Lema Institucional */
+        .hero-lema {
+            margin-bottom: 6px;
+        }
+
+        .hero-lema span {
+            color: var(--neon-gold);
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+            text-transform: uppercase;
+        }
+
+        /* Texto de Emergencia */
+        .emergency-notice {
+            font-size: 0.64rem;
+            color: #E2E8F0;
+            margin-bottom: 12px;
+            font-weight: 500;
+            padding: 0 16px;
+            line-height: 1.45;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+        }
+
+        .emergency-notice b {
+            color: var(--neon-gold);
+            font-weight: 700;
+        }
+
+        /* Botón Principal (Guardar Contacto) */
+        .btn-download {
+            background: linear-gradient(135deg, #0B2545 0%, #163866 100%);
+            color: #FFFFFF;
+            font-weight: 800;
+            border-radius: 20px;
+            padding: 9px 16px;
+            width: 80%;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 6px 20px rgba(11, 37, 69, 0.75),
+                        0 0 12px rgba(255, 215, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: 1.8px solid var(--neon-gold);
+        }
+
+        .btn-download i {
+            color: var(--neon-gold);
+            font-size: 0.9rem;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #163866 0%, #1D4ED8 100%);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.85), 0 0 18px rgba(255, 215, 0, 0.7);
+            transform: scale(1.04);
+        }
+
+        /* Acciones Rápidas (WhatsApp y GPS) */
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            width: 80%;
+            margin-bottom: 8px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 9px 6px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.65rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 16px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            border: 1px solid rgba(52, 211, 153, 0.65);
+        }
+
+        .btn-whatsapp:hover {
+            background: linear-gradient(135deg, #10B981, #059669);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.85);
+            transform: scale(1.05);
+        }
+
+        .btn-map {
+            background: linear-gradient(135deg, #DC2626, #B91C1C);
+            color: white;
+            border: 1px solid rgba(248, 113, 113, 0.65);
+        }
+
+        .btn-map:hover {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.85);
+            transform: scale(1.05);
+        }
+
+        /* Número de Emergencia */
+        .emergency-number {
+            background: rgba(10, 22, 40, 0.92);
+            color: var(--neon-gold);
+            padding: 7px 14px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.65);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .emergency-number:hover {
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            transform: scale(1.06);
+        }
+
+        footer {
+            font-size: 0.68rem;
+            color: #CBD5E1;
+            text-align: center;
+            margin-top: 16px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Logotipo Serenazgo">
+        </div>
+
+        <div class="hero-lema">
+            <span>¡Ascensión, te quiero seguro!</span>
+        </div>
+
+        <div class="emergency-notice">
+            <b>¡Atención!</b> Ante <b>cualquier emergencia</b>, comunícate con nuestra central operativa 24/7.
+        </div>
+
+        <a href="{{ url_for('descargar_contacto') }}" class="btn-download" id="btnAccion">
+            <i class="fa-solid fa-address-book"></i> Guardar Contacto
+        </a>
+
+        <div class="quick-actions">
+            <a href="https://wa.me/51959499459?text=Hola,%20necesito%20reportar%20una%20emergencia%20desde%20mi%20ubicación." target="_blank" class="action-btn btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="javascript:void(0);" onclick="abrirRutaGPS()" class="action-btn btn-map" id="btnMapa">
+                <i class="fa-solid fa-location-dot"></i> GPS
+            </a>
+        </div>
+
+        <a href="tel:959499459" class="emergency-number">
+            <i class="fa-solid fa-phone-volume"></i> 959 499 459
+        </a>
+    </div>
+
+    <footer>
+        Centro de Videovigilancia y Serenazgo &copy; 2026 - Ascensión, Perú
+    </footer>
+
+    <script>
+        document.getElementById('btnAccion').addEventListener('click', function(e) {
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+            setTimeout(() => {
+                this.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Guardado!';
+                this.style.background = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
+            }, 1200);
+        });
+
+        function abrirRutaGPS() {
+            const baseLat = -12.780080;
+            const baseLng = -74.986206;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+                    window.open(`https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${baseLat},${baseLng}&travelmode=driving`, '_blank');
+                }, function(error) {
+                    window.open(`https://maps.google.com/?q=${baseLat},${baseLng}`, '_blank');
+                }, { timeout: 10000 });
+            } else {
+                window.open(`https://maps.google.com/?q=${baseLat},${baseLng}`, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>

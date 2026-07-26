@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Central de Seguridad Ciudadana;Ascensión;;;
+FN:Central Seguridad Ascensión
+ORG:Municipalidad Distrital de Ascensión - Serenazgo
+TITLE:Centro de Operaciones
+TEL;TYPE=WORK,VOICE:+51959499459
+TEL;TYPE=CELL:+51959499459
+ADR;TYPE=WORK:;;Ascensión, Huancavelica;Perú;;;
+NOTE:Emergencias 24h - Lema: Ascensión, te quiero seguro
+CATEGORIES:Emergencia,Municipalidad
+END:VCARD
