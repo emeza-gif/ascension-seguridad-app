@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Seguridad Ciudadana - Municipalidad Distrital de Ascensión</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --neon-gold: #FFD700;
-            --neon-blue: #00F2FE;
-            --dark-bg: #030a14;
-            --card-glass: rgba(10, 20, 38, 0.88);
+            --glass-bg: rgba(15, 30, 55, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-hover: rgba(255, 255, 255, 0.12);
         }
 
         * {
@@ -23,7 +23,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, rgba(3, 10, 20, 0.9), rgba(8, 24, 48, 0.95)), 
+            background: linear-gradient(135deg, rgba(3, 10, 20, 0.75), rgba(8, 24, 48, 0.85)), 
                         url("{{ url_for('static', filename='img/fondo_serenazgo.jpg') }}");
             background-size: cover;
             background-position: center;
@@ -34,236 +34,318 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 20px 15px;
         }
 
-        /* CARD TIPO APLICACIÓN MÓVIL (ESTILO MODERNO) */
-        .app-card {
-            position: relative;
+        /* CONTENEDOR PRINCIPAL */
+        .container-formal {
             width: 100%;
-            max-width: 380px;
-            background: var(--card-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            padding: 28px 20px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8),
-                        0 0 30px rgba(255, 215, 0, 0.25);
-            border: 2px solid var(--neon-gold);
+            max-width: 480px;
             display: flex;
             flex-direction: column;
+            gap: 14px;
+        }
+
+        /* ENCABEZADO INSTITUCIONAL */
+        .header-formal {
+            display: flex;
             align-items: center;
             gap: 14px;
-            overflow: hidden;
-            animation: cardGlow 4s infinite alternate;
         }
 
-        @keyframes cardGlow {
-            0% { box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.2); }
-            100% { box-shadow: 0 15px 40px rgba(0,0,0,0.9), 0 0 35px rgba(255, 215, 0, 0.45); }
+        .header-logo {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
         }
 
-        /* HEADER INSTITUCIONAL */
-        .header-section {
+        .header-titles {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 8px;
         }
 
-        .logo-container img {
-            max-width: 85px;
-            height: auto;
-            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
-        }
-
-        .hero-lema span {
-            color: var(--neon-gold);
-            font-size: 1.15rem;
-            font-weight: 900;
+        .header-titles h2 {
+            font-size: 0.85rem;
+            font-weight: 800;
             letter-spacing: 0.5px;
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
             text-transform: uppercase;
-            display: block;
+            color: #FFFFFF;
         }
 
-        .emergency-notice {
-            font-size: 0.75rem;
-            color: #E2E8F0;
-            font-weight: 500;
-            line-height: 1.4;
-            padding: 0 10px;
-        }
-
-        .emergency-notice b {
+        .header-titles p {
+            font-size: 0.72rem;
             color: var(--neon-gold);
-            font-weight: 800;
+            font-weight: 600;
         }
 
-        /* SECCIÓN DE BOTONES DE ACCIÓN */
-        .actions-group {
-            width: 100%;
+        /* LEMA PRINCIPAL */
+        .main-title h1 {
+            font-size: 2.1rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #FFFFFF;
+        }
+
+        .main-title .highlight {
+            color: var(--neon-gold);
+            display: block;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* NUEVO BANNER DINÁMICO E INTERACTIVO (REEMPLAZO) */
+        .interactive-alert-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .interactive-alert-box:active {
+            transform: scale(0.98);
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .alert-left-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00FF7F;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00FF7F;
+            animation: pulseDot 1.5s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        .dynamic-text {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            animation: fadeInText 0.5s ease;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(3px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .speaker-hint {
+            font-size: 0.75rem;
+            color: var(--neon-gold);
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        /* TARJETAS HORIZONTALES TRANSPARENTES */
+        .card-transparent {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+
+        .card-transparent:hover, .card-transparent:active {
+            background: var(--glass-hover);
+            border-color: rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--neon-gold);
+            flex-shrink: 0;
+        }
+
+        .card-content {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 3px;
+            flex-grow: 1;
         }
 
-        /* BOTÓN PRINCIPAL: GUARDAR CONTACTO */
-        .btn-download {
-            background: linear-gradient(135deg, #0b2e59 0%, #16488a 100%);
-            color: #FFFFFF;
+        .card-title {
+            font-size: 0.95rem;
             font-weight: 800;
-            border-radius: 18px;
-            padding: 14px;
-            width: 100%;
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .card-desc {
+            font-size: 0.72rem;
+            color: #CBD5E1;
+            font-weight: 500;
+        }
+
+        /* FILA INFERIOR */
+        .bottom-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .phone-card {
+            flex: 2;
+            background: rgba(10, 22, 40, 0.85);
+            border: 1.5px solid var(--neon-gold);
+            border-radius: 16px;
+            padding: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1.5px solid var(--neon-gold);
-        }
-
-        .btn-download i {
             color: var(--neon-gold);
             font-size: 1.1rem;
-        }
-
-        .btn-download:active {
-            transform: scale(0.98);
-        }
-
-        /* GRID RÁPIDO (WHATSAPP + GPS) */
-        .quick-actions {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 12px 8px;
-            border-radius: 16px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            transition: all 0.25s ease;
-        }
-
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #059669, #047857);
-            color: white;
-            border: 1px solid rgba(52, 211, 153, 0.7);
-        }
-
-        .btn-whatsapp:active {
-            transform: scale(0.96);
-        }
-
-        .btn-map {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: white;
-            border: 1px solid rgba(248, 113, 113, 0.7);
-        }
-
-        .btn-map:active {
-            transform: scale(0.96);
-        }
-
-        /* NÚMERO DE EMERGENCIA CON NEÓN DESTACADO */
-        .emergency-number {
-            width: 100%;
-            background: rgba(3, 10, 20, 0.95);
-            color: var(--neon-gold);
-            padding: 12px;
-            border-radius: 18px;
-            font-size: 1.25rem;
             font-weight: 900;
-            letter-spacing: 2px;
-            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
+        }
+
+        .share-card {
+            flex: 1;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 12px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            border: 1.5px solid var(--neon-gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .emergency-number i {
-            animation: phonePulse 1.5s infinite;
+        .share-count {
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: #00F2FE;
         }
 
-        @keyframes phonePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+        .share-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #A0AEC0;
         }
 
         footer {
             font-size: 0.7rem;
-            color: #A0AEC0;
+            color: #CBD5E1;
             text-align: center;
-            margin-top: 18px;
+            margin-top: 20px;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
     </style>
 </head>
 <body>
 
-    <div class="app-card">
-        <div class="header-section">
-            <div class="logo-container">
-                <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Logotipo Serenazgo">
-            </div>
-
-            <div class="hero-lema">
-                <span>¡Ascensión, te quiero seguro!</span>
-            </div>
-
-            <div class="emergency-notice">
-                <b>¡Atención!</b> Ante cualquier emergencia, comunícate con nuestra central operativa 24/7.
+    <div class="container-formal">
+        
+        <!-- Encabezado Institucional -->
+        <div class="header-formal">
+            <img class="header-logo" src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Logo Ascensión">
+            <div class="header-titles">
+                <h2>Municipalidad Distrital de Ascensión</h2>
+                <p>Gestión 2023 - 2026</p>
             </div>
         </div>
 
-        <div class="actions-group">
-            <a href="{{ url_for('descargar_contacto') }}" class="btn-download" id="btnAccion">
-                <i class="fa-solid fa-address-book"></i> Guardar Contacto
-            </a>
-
-            <div class="quick-actions">
-                <a href="https://wa.me/51959499459?text=Hola,%20necesito%20reportar%20una%20emergencia%20desde%20mi%20ubicación." target="_blank" class="action-btn btn-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="javascript:void(0);" onclick="abrirRutaGPS()" class="action-btn btn-map" id="btnMapa">
-                    <i class="fa-solid fa-location-dot"></i> GPS
-                </a>
-            </div>
-
-            <a href="tel:959499459" class="emergency-number">
-                <i class="fa-solid fa-phone-volume"></i> 959 499 459
-            </a>
+        <!-- Lema Principal -->
+        <div class="main-title">
+            <h1>¡Ascensión, <span class="highlight">te quiero seguro!</span></h1>
         </div>
+
+        <!-- REEMPLAZO INTERACTIVO Y DINÁMICO -->
+        <div class="interactive-alert-box" id="bannerAlerta" onclick="leerAlertaActual()">
+            <div class="alert-left-content">
+                <div class="live-dot"></div>
+                <span class="dynamic-text" id="textoAlerta">Central Operativa 24/7 en línea</span>
+            </div>
+            <i class="fa-solid fa-volume-high speaker-hint"></i>
+        </div>
+
+        <!-- Tarjetas de Funciones -->
+        <a href="{{ url_for('descargar_contacto') }}" class="card-transparent">
+            <div class="card-icon">
+                <i class="fa-solid fa-address-book"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-title">Guardar en Contactos</span>
+                <span class="card-desc">Descarga la credencial oficial en tu celular</span>
+            </div>
+        </a>
+
+        <div class="card-transparent" id="btnWhatsapp">
+            <div class="card-icon" style="color: #25D366; background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.3);">
+                <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-title">Reporte por WhatsApp</span>
+                <span class="card-desc">Atención inmediata y confidencial 24/7</span>
+            </div>
+        </div>
+
+        <div class="card-transparent" onclick="abrirRutaGPS()">
+            <div class="card-icon" style="color: #FF4D4D; background: rgba(255, 77, 77, 0.15); border-color: rgba(255, 77, 77, 0.3);">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-title">Ubicación GPS Central</span>
+                <span class="card-desc">Ruta en Google Maps hacia la base de Serenazgo</span>
+            </div>
+        </div>
+
+        <!-- Fila Inferior -->
+        <div class="bottom-actions">
+            <a href="tel:959499459" class="phone-card">
+                <i class="fa-solid fa-phone-volume"></i>
+                <span>959 499 459</span>
+            </a>
+
+            <div class="share-card" id="btnCompartir">
+                <i class="fa-solid fa-share-nodes" style="color: #00F2FE; font-size: 0.9rem; margin-bottom: 2px;"></i>
+                <span class="share-count" id="countDisplay">142</span>
+                <span class="share-label">Compartidos</span>
+            </div>
+        </div>
+
     </div>
 
     <footer>
@@ -271,14 +353,86 @@
     </footer>
 
     <script>
-        document.getElementById('btnAccion').addEventListener('click', function(e) {
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+        // --- 1. MENSAJES DINÁMICOS Y VOZ AL TOCAR ---
+        const mensajesAlertas = [
+            "🔴 Central Operativa 24/7 en línea",
+            "🛡️ Asistencia inmediata en zonas escolares",
+            "🚨 Ante cualquier emergencia, toca aquí para escuchar",
+            "📹 Monitoreo por cámaras de seguridad en tiempo real"
+        ];
+
+        let indiceMensaje = 0;
+        const textoAlerta = document.getElementById('textoAlerta');
+
+        // Rotación de mensajes cada 3.5 segundos
+        setInterval(() => {
+            indiceMensaje = (indiceMensaje + 1) % mensajesAlertas.length;
+            textoAlerta.style.animation = 'none';
+            void textoAlerta.offsetWidth; // Trigger reflow
+            textoAlerta.innerText = mensajesAlertas[indiceMensaje];
+            textoAlerta.style.animation = 'fadeInText 0.5s ease';
+        }, 3500);
+
+        function hablar(texto) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(texto);
+                utterance.lang = 'es-PE';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function leerAlertaActual() {
+            // Elimina los emoji para una lectura más limpia por el sintetizador
+            const textoLimpio = textoAlerta.innerText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+            hablar(textoLimpio);
+        }
+
+        // Voz inicial al cargar
+        let vozInicial = false;
+        function ejecutarVozInicial() {
+            if (!vozInicial) {
+                hablar("Central de Serenazgo Ascensión. Tu colegio seguro.");
+                vozInicial = true;
+                document.removeEventListener('click', ejecutarVozInicial);
+                document.removeEventListener('touchstart', ejecutarVozInicial);
+            }
+        }
+        document.addEventListener('click', ejecutarVozInicial);
+        document.addEventListener('touchstart', ejecutarVozInicial);
+
+        // --- 2. WHATSAPP CON VOZ ---
+        document.getElementById('btnWhatsapp').addEventListener('click', function() {
+            hablar("¡Ascensión te quiere seguro! Conectando con la central.");
             setTimeout(() => {
-                this.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Guardado!';
-                this.style.background = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
-            }, 1200);
+                const numero = "51959499459";
+                const msj = encodeURIComponent("Hola, necesito reportar una emergencia desde mi ubicación.");
+                window.open(`https://wa.me/${numero}?text=${msj}`, '_blank');
+            }, 1000);
         });
 
+        // --- 3. CONTADOR DE COMPARTIDOS ---
+        let compartidos = localStorage.getItem('total_shares') ? parseInt(localStorage.getItem('total_shares')) : 142;
+        document.getElementById('countDisplay').innerText = compartidos;
+
+        document.getElementById('btnCompartir').addEventListener('click', function() {
+            compartidos++;
+            document.getElementById('countDisplay').innerText = compartidos;
+            localStorage.setItem('total_shares', compartidos);
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Serenazgo Ascensión',
+                    text: '¡Ascensión te quiero seguro! Contacto rápido de emergencias y Serenazgo.',
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                alert("¡Enlace copiado! Compártelo con tus contactos.");
+            }
+        });
+
+        // --- 4. GPS ---
         function abrirRutaGPS() {
             const baseLat = -12.780080;
             const baseLng = -74.986206;
@@ -288,9 +442,9 @@
                     const userLat = position.coords.latitude;
                     const userLng = position.coords.longitude;
                     window.open(`https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${baseLat},${baseLng}&travelmode=driving`, '_blank');
-                }, function(error) {
+                }, function() {
                     window.open(`https://maps.google.com/?q=${baseLat},${baseLng}`, '_blank');
-                }, { timeout: 10000 });
+                });
             } else {
                 window.open(`https://maps.google.com/?q=${baseLat},${baseLng}`, '_blank');
             }
