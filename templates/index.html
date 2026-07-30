@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Seguridad Ciudadana - Municipalidad Distrital de Ascensión</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --neon-gold: #FFD700;
-            --neon-gold-glow: rgba(255, 215, 0, 0.7);
-            --dark-glass: rgba(5, 14, 28, 0.85);
+            --neon-blue: #00F2FE;
+            --dark-bg: #030a14;
+            --card-glass: rgba(10, 20, 38, 0.88);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, rgba(3, 10, 20, 0.85), rgba(8, 24, 48, 0.92)), 
+            background: linear-gradient(135deg, rgba(3, 10, 20, 0.9), rgba(8, 24, 48, 0.95)), 
                         url("{{ url_for('static', filename='img/fondo_serenazgo.jpg') }}");
             background-size: cover;
             background-position: center;
@@ -33,136 +34,130 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 15px;
         }
 
-        /* Contenedor Circular Principal */
-        .main-wrapper {
-            width: 410px;
-            height: 410px;
-            max-width: 95vw;
-            max-height: 95vw;
-            background: var(--dark-glass);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            color: #FFFFFF;
-            border-radius: 50%;
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.92), 
-                        0 0 40px var(--neon-gold-glow),
-                        inset 0 0 35px rgba(255, 215, 0, 0.22);
-            padding: 30px 24px;
-            text-align: center;
+        /* CARD TIPO APLICACIÓN MÓVIL (ESTILO MODERNO) */
+        .app-card {
             position: relative;
+            width: 100%;
+            max-width: 380px;
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8),
+                        0 0 30px rgba(255, 215, 0, 0.25);
             border: 2px solid var(--neon-gold);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 14px;
             overflow: hidden;
-            transition: all 0.35s ease;
+            animation: cardGlow 4s infinite alternate;
         }
 
-        .main-wrapper:hover {
-            box-shadow: 0 0 75px rgba(0, 0, 0, 0.98), 
-                        0 0 50px rgba(255, 215, 0, 0.85),
-                        inset 0 0 45px rgba(255, 215, 0, 0.38);
+        @keyframes cardGlow {
+            0% { box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.2); }
+            100% { box-shadow: 0 15px 40px rgba(0,0,0,0.9), 0 0 35px rgba(255, 215, 0, 0.45); }
         }
 
-        /* Logotipo de Serenazgo (Más grande y proporcionado) */
+        /* HEADER INSTITUCIONAL */
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
         .logo-container img {
-            max-width: 78px;
+            max-width: 85px;
             height: auto;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 12px rgba(255,215,0,0.7));
-            transition: transform 0.35s ease;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+            transition: transform 0.3s ease;
         }
 
-        .main-wrapper:hover .logo-container img {
-            transform: scale(1.08);
-        }
-
-        /* Lema Institucional */
-        .hero-lema {
-            margin-bottom: 6px;
+        .logo-container img:hover {
+            transform: scale(1.05);
         }
 
         .hero-lema span {
             color: var(--neon-gold);
-            display: block;
-            font-size: 0.95rem;
+            font-size: 1.15rem;
             font-weight: 900;
             letter-spacing: 0.5px;
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
             text-transform: uppercase;
+            display: block;
         }
 
-        /* Texto de Emergencia */
         .emergency-notice {
-            font-size: 0.64rem;
+            font-size: 0.75rem;
             color: #E2E8F0;
-            margin-bottom: 12px;
             font-weight: 500;
-            padding: 0 16px;
-            line-height: 1.45;
-            letter-spacing: 0.3px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            line-height: 1.4;
+            padding: 0 10px;
         }
 
         .emergency-notice b {
             color: var(--neon-gold);
-            font-weight: 700;
+            font-weight: 800;
         }
 
-        /* Botón Principal (Guardar Contacto) */
+        /* SECCIÓN DE BOTONES DE ACCIÓN */
+        .actions-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* BOTÓN PRINCIPAL: GUARDAR CONTACTO */
         .btn-download {
-            background: linear-gradient(135deg, #0B2545 0%, #163866 100%);
+            background: linear-gradient(135deg, #0b2e59 0%, #16488a 100%);
             color: #FFFFFF;
             font-weight: 800;
-            border-radius: 20px;
-            padding: 9px 16px;
-            width: 80%;
-            font-size: 0.72rem;
+            border-radius: 18px;
+            padding: 14px;
+            width: 100%;
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            box-shadow: 0 6px 20px rgba(11, 37, 69, 0.75),
-                        0 0 12px rgba(255, 215, 0, 0.35);
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 215, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin-bottom: 8px;
             cursor: pointer;
-            border: 1.8px solid var(--neon-gold);
+            border: 1.5px solid var(--neon-gold);
         }
 
         .btn-download i {
             color: var(--neon-gold);
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
-        .btn-download:hover {
-            background: linear-gradient(135deg, #163866 0%, #1D4ED8 100%);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.85), 0 0 18px rgba(255, 215, 0, 0.7);
-            transform: scale(1.04);
+        .btn-download:active {
+            transform: scale(0.98);
         }
 
-        /* Acciones Rápidas (WhatsApp y GPS) */
+        /* GRID RÁPIDO (WHATSAPP + GPS) */
         .quick-actions {
             display: flex;
-            gap: 8px;
-            width: 80%;
-            margin-bottom: 8px;
-            justify-content: center;
+            gap: 10px;
+            width: 100%;
         }
 
         .action-btn {
             flex: 1;
-            padding: 9px 6px;
-            border-radius: 14px;
+            padding: 12px 8px;
+            border-radius: 16px;
             font-weight: 800;
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -170,100 +165,105 @@
             gap: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 5px 16px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: all 0.25s ease;
         }
 
         .btn-whatsapp {
             background: linear-gradient(135deg, #059669, #047857);
             color: white;
-            border: 1px solid rgba(52, 211, 153, 0.65);
+            border: 1px solid rgba(52, 211, 153, 0.7);
         }
 
-        .btn-whatsapp:hover {
-            background: linear-gradient(135deg, #10B981, #059669);
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.85);
-            transform: scale(1.05);
+        .btn-whatsapp:active {
+            transform: scale(0.96);
         }
 
         .btn-map {
-            background: linear-gradient(135deg, #DC2626, #B91C1C);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
             color: white;
-            border: 1px solid rgba(248, 113, 113, 0.65);
+            border: 1px solid rgba(248, 113, 113, 0.7);
         }
 
-        .btn-map:hover {
-            background: linear-gradient(135deg, #EF4444, #DC2626);
-            box-shadow: 0 0 18px rgba(239, 68, 68, 0.85);
-            transform: scale(1.05);
+        .btn-map:active {
+            transform: scale(0.96);
         }
 
-        /* Número de Emergencia */
+        /* NÚMERO DE EMERGENCIA CON NEÓN DESTACADO */
         .emergency-number {
-            background: rgba(10, 22, 40, 0.92);
+            width: 100%;
+            background: rgba(3, 10, 20, 0.95);
             color: var(--neon-gold);
-            padding: 7px 14px;
-            border-radius: 14px;
-            font-size: 0.85rem;
+            padding: 12px;
+            border-radius: 18px;
+            font-size: 1.25rem;
             font-weight: 900;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
             text-decoration: none;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 215, 0, 0.65);
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+            justify-content: center;
+            gap: 10px;
+            border: 1.5px solid var(--neon-gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
             transition: all 0.3s ease;
         }
 
-        .emergency-number:hover {
-            background: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
-            transform: scale(1.06);
+        .emergency-number i {
+            animation: phonePulse 1.5s infinite;
+        }
+
+        @keyframes phonePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         footer {
-            font-size: 0.68rem;
-            color: #CBD5E1;
+            font-size: 0.7rem;
+            color: #A0AEC0;
             text-align: center;
-            margin-top: 16px;
+            margin-top: 18px;
             font-weight: 600;
-            letter-spacing: 0.4px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <div class="logo-container">
-            <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Logotipo Serenazgo">
+    <div class="app-card">
+        <div class="header-section">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Logotipo Serenazgo">
+            </div>
+
+            <div class="hero-lema">
+                <span>¡Ascensión, te quiero seguro!</span>
+            </div>
+
+            <div class="emergency-notice">
+                <b>¡Atención!</b> Ante cualquier emergencia, comunícate con nuestra central operativa 24/7.
+            </div>
         </div>
 
-        <div class="hero-lema">
-            <span>¡Ascensión, te quiero seguro!</span>
-        </div>
-
-        <div class="emergency-notice">
-            <b>¡Atención!</b> Ante <b>cualquier emergencia</b>, comunícate con nuestra central operativa 24/7.
-        </div>
-
-        <a href="{{ url_for('descargar_contacto') }}" class="btn-download" id="btnAccion">
-            <i class="fa-solid fa-address-book"></i> Guardar Contacto
-        </a>
-
-        <div class="quick-actions">
-            <a href="https://wa.me/51959499459?text=Hola,%20necesito%20reportar%20una%20emergencia%20desde%20mi%20ubicación." target="_blank" class="action-btn btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        <div class="actions-group">
+            <a href="{{ url_for('descargar_contacto') }}" class="btn-download" id="btnAccion">
+                <i class="fa-solid fa-address-book"></i> Guardar Contacto
             </a>
-            <a href="javascript:void(0);" onclick="abrirRutaGPS()" class="action-btn btn-map" id="btnMapa">
-                <i class="fa-solid fa-location-dot"></i> GPS
+
+            <div class="quick-actions">
+                <a href="https://wa.me/51959499459?text=Hola,%20necesito%20reportar%20una%20emergencia%20desde%20mi%20ubicación." target="_blank" class="action-btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="javascript:void(0);" onclick="abrirRutaGPS()" class="action-btn btn-map" id="btnMapa">
+                    <i class="fa-solid fa-location-dot"></i> GPS
+                </a>
+            </div>
+
+            <a href="tel:959499459" class="emergency-number">
+                <i class="fa-solid fa-phone-volume"></i> 959 499 459
             </a>
         </div>
-
-        <a href="tel:959499459" class="emergency-number">
-            <i class="fa-solid fa-phone-volume"></i> 959 499 459
-        </a>
     </div>
 
     <footer>
