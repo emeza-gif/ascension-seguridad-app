@@ -6,7 +6,7 @@
     <title>Seguridad Ciudadana - Ascensión</title>
     
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#0d47a1">
+    <meta name="theme-color" content="#023e8a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" id="manifest-placeholder">
@@ -20,7 +20,6 @@
             --blue-primary: #023e8a;
             --blue-header: #0077b6;
             --blue-card: #0096c7;
-            --blue-card-hover: #03045e;
             --bg-app: #031b4e;
             --white: #ffffff;
             --off-white: #f8fafc;
@@ -55,52 +54,68 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 18px 85px 18px;
+            padding: 18px 18px 85px 18px;
             position: relative;
             background: rgba(3, 27, 78, 0.6);
             backdrop-filter: blur(12px);
         }
 
-        /* HEADER DE SALUDO TIPO APP */
-        .user-header {
+        /* CABECERA ESTILO TARJETA BLANCA MÓVIL */
+        .header-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 14px 16px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 14px;
             margin-bottom: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            border-left: 5px solid var(--blue-primary);
         }
 
-        .greeting h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--white);
-            letter-spacing: -0.3px;
-        }
-
-        .greeting p {
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            font-weight: 600;
-        }
-
-        .muni-badge {
-            width: 44px;
-            height: 44px;
-            background: var(--white);
-            border-radius: 50%;
-            padding: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        .header-logo {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .muni-badge img {
+        .header-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        /* BOTÓN DE ALERTA RÁPIDA (ROJO DE SEGURIDAD) */
+        .header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .muni-title {
+            font-size: 0.62rem;
+            font-weight: 800;
+            color: var(--blue-primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-text h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 2px 0;
+            line-height: 1.2;
+        }
+
+        .header-text p {
+            font-size: 0.72rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* BOTÓN DE ALERTA RÁPIDA (ROJO SEGURIDAD) */
         .btn-quick-alert {
             background: linear-gradient(135deg, #ef233c 0%, #d90429 100%);
             color: var(--white);
@@ -117,7 +132,7 @@
             transition: all 0.2s ease;
             border: none;
             width: 100%;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -136,6 +151,46 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
+        }
+
+        /* BARRA INFORMATIVA INTERACTIVA */
+        .info-ticker {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .info-ticker-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: #00f5d4;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00f5d4;
+            animation: pulseDot 1.8s infinite;
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        .info-ticker span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--white);
         }
 
         /* ETIQUETA DE SECCIÓN */
@@ -215,47 +270,7 @@
             color: var(--red-alert);
         }
 
-        /* BARRA INFORMATIVA INTERACTIVA */
-        .info-ticker {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        .info-ticker-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pulse-dot {
-            width: 10px;
-            height: 10px;
-            background: #00f5d4;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00f5d4;
-            animation: pulseDot 1.8s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            50% { transform: scale(1.3); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-
-        .info-ticker span {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--white);
-        }
-
-        /* BOTTOM NAV CON ESTILO BLANCO / AZUL */
+        /* BOTTOM NAV EN BLANCO / AZUL */
         .bottom-nav {
             position: absolute;
             bottom: 12px;
@@ -447,14 +462,15 @@
 
     <div class="app-frame">
         <div>
-            <!-- Encabezado de Usuario -->
-            <div class="user-header">
-                <div class="greeting">
-                    <h2>Hola, Ciudadano</h2>
-                    <p>¡Ascensión te quiero seguro!</p>
+            <!-- Cabecera Limpia Estilo Tarjeta Blanca -->
+            <div class="header-card">
+                <div class="header-logo">
+                    <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Escudo Ascensión">
                 </div>
-                <div class="muni-badge">
-                    <img src="{{ url_for('static', filename='img/escudo_ascension.png') }}" alt="Escudo Ascensión">
+                <div class="header-text">
+                    <span class="muni-title">Municipalidad Distrital de Ascensión</span>
+                    <h1>¡Ascensión, te quiero seguro!</h1>
+                    <p>Hola, Ciudadano • Central Operativa</p>
                 </div>
             </div>
 
@@ -725,7 +741,7 @@
             "start_url": ".",
             "display": "standalone",
             "background_color": "#031b4e",
-            "theme_color": "#0d47a1",
+            "theme_color": "#023e8a",
             "icons": [{
                 "src": "https://cdn-icons-png.flaticon.com/512/2092/2092663.png",
                 "sizes": "512x512",
@@ -737,4 +753,3 @@
     </script>
 </body>
 </html>
-
