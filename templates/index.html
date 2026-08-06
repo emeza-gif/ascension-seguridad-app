@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Seguridad Ciudadana - Ascensión</title>
     
     <!-- PWA Meta Tags -->
@@ -16,7 +16,6 @@
     
     <style>
         :root {
-            /* PALETA MUNICIPAL DE ASCENSIÓN */
             --muni-blue-dark: #071527;
             --muni-blue-mid: #0f2b48;
             --muni-blue-card: #15385d;
@@ -43,7 +42,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
         }
 
         .app-frame {
@@ -53,27 +52,27 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 18px 90px 18px;
+            padding: 12px 14px 80px 14px;
             position: relative;
             background: rgba(7, 21, 39, 0.75);
             backdrop-filter: blur(12px);
         }
 
-        /* HEADER PRINCIPAL */
+        /* HEADER PRINCIPAL AJUSTADO */
         .user-header {
             background: var(--white);
-            border-radius: 20px;
-            padding: 12px 16px;
+            border-radius: 16px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            gap: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
         }
 
         .muni-badge {
-            width: 44px;
-            height: 44px;
+            width: 38px;
+            height: 38px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -81,7 +80,7 @@
             background: var(--muni-blue-dark);
             border-radius: 50%;
             color: var(--muni-yellow);
-            font-size: 1.2rem;
+            font-size: 1rem;
             overflow: hidden;
         }
 
@@ -94,45 +93,48 @@
         .greeting-text {
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .greeting-text small {
-            font-size: 0.65rem;
+            font-size: 0.58rem;
             font-weight: 800;
             color: #0f2b48;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
         }
 
         .greeting-text h2 {
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             font-weight: 800;
             color: #071527;
-            line-height: 1.1;
+            line-height: 1.15;
             display: flex;
             align-items: center;
+            white-space: nowrap;
         }
 
         .greeting-text span.subtitle {
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             color: #475569;
             font-weight: 600;
+            white-space: nowrap;
         }
 
-        /* ANIMACIÓN TYPEWRITER CONTINUA */
+        /* TYPEWRITER CONTINUO REDISEÑADO PARA MÓVIL */
         .typewriter-title {
             display: inline-block;
             color: #071527;
             font-weight: 800;
-            font-size: 1.15rem;
+            font-size: 0.92rem;
             line-height: 1.1;
-            min-height: 1.3em;
         }
 
         .typewriter-title .char {
             display: inline-block;
             opacity: 0;
-            transform: translateY(4px);
+            transform: translateY(2px);
             animation: fadeInChar 0.08s forwards ease-out;
         }
 
@@ -146,9 +148,9 @@
         .typing-cursor {
             display: inline-block;
             width: 2px;
-            height: 1.1em;
+            height: 1em;
             background-color: #071527;
-            margin-left: 2px;
+            margin-left: 1px;
             vertical-align: middle;
             animation: blinkCursor 0.7s infinite;
         }
@@ -158,68 +160,68 @@
             50% { opacity: 0; }
         }
 
-        /* BOTÓN DE ALERTA RÁPIDA */
+        /* BOTÓN DE ALERTA RÁPIDA COMPACTO */
         .btn-quick-alert {
             background: linear-gradient(135deg, #ff4d6d 0%, #d90429 100%);
             color: var(--white);
-            border-radius: 30px;
-            padding: 14px 20px;
+            border-radius: 24px;
+            padding: 11px 16px;
             font-weight: 800;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 8px;
             cursor: pointer;
-            box-shadow: 0 6px 20px var(--red-glow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 14px var(--red-glow);
+            transition: transform 0.2s ease;
             border: none;
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
         .btn-quick-alert:active {
-            transform: scale(0.96);
+            transform: scale(0.97);
         }
 
         .btn-quick-alert i {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             animation: pulseIcon 1.5s infinite;
         }
 
         @keyframes pulseIcon {
             0% { transform: scale(1); }
-            50% { transform: scale(1.25); }
+            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
-        /* TICKER INFORMATIVO */
+        /* TICKER INFORMATIVO AJUSTADO */
         .info-ticker {
             background: rgba(21, 56, 93, 0.7);
             border: 1px solid rgba(255, 204, 0, 0.35);
-            border-radius: 14px;
-            padding: 10px 14px;
+            border-radius: 12px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             cursor: pointer;
         }
 
         .info-ticker-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .pulse-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--muni-yellow);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--muni-yellow);
+            box-shadow: 0 0 8px var(--muni-yellow);
             animation: pulseDot 1.8s infinite;
         }
 
@@ -230,87 +232,87 @@
         }
 
         .info-ticker span {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--white);
         }
 
         .section-title {
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 800;
             color: var(--muni-yellow);
-            margin-bottom: 14px;
-            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
         }
 
-        /* GRID PRINCIPAL */
+        /* GRID 3x3 COMPACTO Y ADAPTABLE */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .grid-card {
             background: linear-gradient(145deg, #183e68 0%, #0d2644 100%);
             border: 1px solid rgba(255, 204, 0, 0.35);
-            border-radius: 20px;
-            padding: 16px 8px;
+            border-radius: 16px;
+            padding: 12px 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             color: var(--white);
-            transition: all 0.22s ease-in-out;
+            transition: all 0.2s ease;
             text-align: center;
             cursor: pointer;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            min-height: 85px;
         }
 
-        .grid-card:hover, .grid-card:active {
+        .grid-card:active {
             background: var(--muni-yellow);
             color: var(--muni-blue-dark);
             border-color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px var(--muni-yellow-glow);
+            transform: scale(0.96);
         }
 
         .grid-card i {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+            font-size: 1.5rem;
+            margin-bottom: 6px;
             color: var(--muni-yellow);
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
-        .grid-card:hover i, .grid-card:active i {
+        .grid-card:active i {
             color: var(--muni-blue-dark);
-            transform: scale(1.18) rotate(-5deg);
         }
 
         .grid-card span {
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.15;
+            padding: 0 2px;
         }
 
         .grid-card.danger-card {
             background: linear-gradient(135deg, #d90429 0%, #8d0801 100%);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 6px 18px var(--red-glow);
+            box-shadow: 0 4px 14px var(--red-glow);
         }
 
         .grid-card.danger-card i {
             color: var(--white);
         }
 
-        .grid-card.danger-card:hover, .grid-card.danger-card:active {
+        .grid-card.danger-card:active {
             background: var(--white);
             color: var(--red-alert);
         }
 
-        .grid-card.danger-card:hover i, .grid-card.danger-card:active i {
+        .grid-card.danger-card:active i {
             color: var(--red-alert);
         }
 
@@ -327,25 +329,25 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            padding: 16px;
+            padding: 14px;
         }
 
         .modal-card {
             background: #ffffff;
             color: #0f172a;
-            border-radius: 28px;
+            border-radius: 22px;
             width: 100%;
-            max-width: 390px;
-            padding: 22px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            max-width: 380px;
+            padding: 18px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             animation: modalSlide 0.25s ease-out;
         }
 
         @keyframes modalSlide {
-            from { transform: translateY(20px); opacity: 0; }
+            from { transform: translateY(15px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
@@ -354,39 +356,34 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 12px;
+            padding-bottom: 8px;
         }
 
         .modal-header h3 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #071527;
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .close-modal {
             background: #f1f5f9;
             border: none;
             color: #64748b;
-            width: 34px;
-            height: 34px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: 800;
-            font-size: 1.1rem;
-            transition: background 0.2s;
-        }
-
-        .close-modal:active {
-            background: #e2e8f0;
+            font-size: 1rem;
         }
 
         .emergency-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .emergency-item {
@@ -395,81 +392,73 @@
             justify-content: space-between;
             background: #f8fafc;
             border: 1.5px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 12px 14px;
+            border-radius: 14px;
+            padding: 10px 12px;
             text-decoration: none;
             color: #0f172a;
-            transition: all 0.2s ease;
         }
 
         .emergency-item:active {
             background: #eef2ff;
             border-color: #ffcc00;
-            transform: scale(0.98);
         }
 
         .item-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .item-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             background: #0f2b48;
             color: #ffcc00;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             flex-shrink: 0;
         }
 
         .item-info span {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 800;
             color: #071527;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .item-info small {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #64748b;
             font-weight: 600;
         }
 
         .btn-call-badge {
-            font-size: 0.78rem;
+            font-size: 0.7rem;
             font-weight: 800;
             color: #071527;
             background: #ffcc00;
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 6px 10px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
-            transition: background 0.2s;
-        }
-
-        .emergency-item:active .btn-call-badge {
-            background: #e6b800;
+            gap: 4px;
         }
 
         .anon-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .form-group label {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 700;
             color: #475569;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             display: block;
         }
 
@@ -477,10 +466,10 @@
             width: 100%;
             background: #f8fafc;
             border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 8px;
             color: #0f172a;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             outline: none;
         }
 
@@ -488,30 +477,30 @@
             background: #25d366;
             color: var(--white);
             border: none;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             font-weight: 800;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
-        /* NAVEGACIÓN INFERIOR */
+        /* NAVEGACIÓN INFERIOR COMPACTA */
         .bottom-nav {
             position: fixed;
-            bottom: 12px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 36px);
-            max-width: 384px;
-            height: 66px;
+            width: calc(100% - 24px);
+            max-width: 396px;
+            height: 56px;
             background: #ffffff;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border-radius: 26px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
             z-index: 100;
-            padding: 0 10px;
+            padding: 0 6px;
         }
 
         .nav-item {
@@ -520,18 +509,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 0.68rem;
-            gap: 4px;
+            font-size: 0.62rem;
+            gap: 2px;
             font-weight: 700;
-            padding: 6px 16px;
-            border-radius: 16px;
+            padding: 4px 14px;
+            border-radius: 12px;
             transition: all 0.2s ease;
             cursor: pointer;
         }
 
         .nav-item i {
-            font-size: 1.25rem;
-            transition: transform 0.2s ease, color 0.2s ease;
+            font-size: 1.1rem;
         }
 
         .nav-item.active {
@@ -541,16 +529,16 @@
 
         .nav-item.active i {
             color: #0f2b48;
-            transform: translateY(-2px) scale(1.1);
         }
 
         footer {
-            font-size: 0.68rem;
+            font-size: 0.62rem;
             color: var(--off-white);
             text-align: center;
             font-weight: 600;
             opacity: 0.8;
-            margin-top: 10px;
+            margin-top: 6px;
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -558,7 +546,7 @@
 
     <div class="app-frame">
         <div>
-            <!-- Banner Encabezado con Animación Bucle -->
+            <!-- Banner Encabezado -->
             <div class="user-header">
                 <div class="muni-badge">
                     <img src="{{ url_for('static', filename='img/escudo_ascension.png') }}" 
@@ -566,7 +554,7 @@
                          onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-shield-cat\'></i>';">
                 </div>
                 <div class="greeting-text">
-                    <small>Municipalidad Distrital de Ascensión</small>
+                    <small>MUNICIPALIDAD DISTRITAL DE ASCENSIÓN</small>
                     <h2>
                         <span class="typewriter-title" id="typewriterText"></span><span class="typing-cursor" id="typingCursor"></span>
                     </h2>
@@ -585,7 +573,7 @@
                     <div class="pulse-dot"></div>
                     <span id="textoAlerta">Central Operativa 24/7 en línea</span>
                 </div>
-                <i class="fa-solid fa-volume-high" style="color: var(--muni-yellow); font-size: 0.85rem;"></i>
+                <i class="fa-solid fa-volume-high" style="color: var(--muni-yellow); font-size: 0.8rem;"></i>
             </div>
 
             <div class="section-title">CATEGORÍAS DE SERVICIO</div>
@@ -778,21 +766,19 @@
         </div>
     </div>
 
-    <!-- LÓGICA DE INTERACCIÓN, ANIMACIÓN BUCLE Y VOZ -->
+    <!-- SCRIPT DE ANIMACIÓN BUCLE Y MÓVIL -->
     <script>
-        // ANIMACIÓN DE TEXTO EN BUCLE PERMANENTE
         document.addEventListener('DOMContentLoaded', () => {
             const textoAnimado = "¡Ascensión, te quiero seguro!";
             const contenedor = document.getElementById('typewriterText');
             if (!contenedor) return;
 
-            const velocidadLetra = 55; // Velocidad de tipeo por letra (ms)
-            const tiempoPausa = 3000;  // Pausa con el texto completo visible (3 segundos)
+            const velocidadLetra = 50; 
+            const tiempoPausa = 2800; 
 
             function iniciarCicloTipeo() {
-                contenedor.innerHTML = ''; // Limpiar el texto anterior
+                contenedor.innerHTML = ''; 
 
-                // Crear los spans por letra
                 [...textoAnimado].forEach((char, index) => {
                     const span = document.createElement('span');
                     span.className = 'char';
@@ -801,22 +787,18 @@
                     contenedor.appendChild(span);
                 });
 
-                // Tiempo total de tipeo + tiempo de espera antes del reinicio
                 const duracionTipeo = textoAnimado.length * velocidadLetra;
                 const tiempoTotalCiclo = duracionTipeo + tiempoPausa;
 
-                // Reiniciar el proceso en bucle continuo
                 setTimeout(iniciarCicloTipeo, tiempoTotalCiclo);
             }
 
             iniciarCicloTipeo();
         });
 
-        // FUNCIONES MODALES
         function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // VOZ / SÍNTESIS
         function hablar(texto) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -844,7 +826,6 @@
             }
         }
 
-        // ENVIAR REPORTE ANÓNIMO
         function enviarReporteAnonimo(e) {
             e.preventDefault();
             const tipo = document.getElementById('tipoIncidencia').value;
@@ -860,7 +841,6 @@
             cerrarModal('modalAnonimo');
         }
 
-        // TICKER ROTATIVO
         const mensajesAlertas = [
             "Central Operativa 24/7 en línea",
             "Asistencia inmediata en zonas escolares",
@@ -879,7 +859,6 @@
             hablar(textoAlerta.innerText);
         }
 
-        // BOTÓN WHATSAPP
         document.getElementById('btnWhatsapp').addEventListener('click', function() {
             hablar("Conectando con la central de serenazgo.");
             setTimeout(() => {
@@ -889,7 +868,6 @@
             }, 600);
         });
 
-        // COMPARTIR APP
         function ejecutarCompartir() {
             if (navigator.share) {
                 navigator.share({
@@ -904,7 +882,6 @@
 
         document.getElementById('btnGridCompartir').addEventListener('click', ejecutarCompartir);
 
-        // GPS BASE
         function abrirRutaGPS() {
             const baseLat = -12.780080;
             const baseLng = -74.986206;
@@ -919,7 +896,6 @@
             }
         }
 
-        // MANIFEST PWA
         const myManifest = {
             "name": "Serenazgo Ascensión",
             "short_name": "Serenazgo",
