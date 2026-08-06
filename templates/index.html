@@ -109,12 +109,53 @@
             font-weight: 800;
             color: #071527;
             line-height: 1.1;
+            display: flex;
+            align-items: center;
         }
 
-        .greeting-text span {
+        .greeting-text span.subtitle {
             font-size: 0.72rem;
             color: #475569;
             font-weight: 600;
+        }
+
+        /* ANIMACIÓN TYPEWRITER CONTINUA */
+        .typewriter-title {
+            display: inline-block;
+            color: #071527;
+            font-weight: 800;
+            font-size: 1.15rem;
+            line-height: 1.1;
+            min-height: 1.3em;
+        }
+
+        .typewriter-title .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(4px);
+            animation: fadeInChar 0.08s forwards ease-out;
+        }
+
+        @keyframes fadeInChar {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: #071527;
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blinkCursor 0.7s infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* BOTÓN DE ALERTA RÁPIDA */
@@ -273,7 +314,7 @@
             color: var(--red-alert);
         }
 
-        /* MODALES E INTERACTIVIDAD */
+        /* MODALES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -517,7 +558,7 @@
 
     <div class="app-frame">
         <div>
-            <!-- Banner Encabezado -->
+            <!-- Banner Encabezado con Animación Bucle -->
             <div class="user-header">
                 <div class="muni-badge">
                     <img src="{{ url_for('static', filename='img/escudo_ascension.png') }}" 
@@ -526,8 +567,10 @@
                 </div>
                 <div class="greeting-text">
                     <small>Municipalidad Distrital de Ascensión</small>
-                    <h2>¡Ascensión, te quiero seguro!</h2>
-                    <span>Central de Operaciones Serenazgo</span>
+                    <h2>
+                        <span class="typewriter-title" id="typewriterText"></span><span class="typing-cursor" id="typingCursor"></span>
+                    </h2>
+                    <span class="subtitle">Central de Operaciones Serenazgo</span>
                 </div>
             </div>
 
@@ -602,7 +645,7 @@
             </footer>
         </div>
 
-        <!-- Navegación Inferior interactiva -->
+        <!-- Navegación Inferior -->
         <div class="bottom-nav">
             <div class="nav-item active" id="navInicio" onclick="cambiarPestana('navInicio', 'modalEmergencias', false)">
                 <i class="fa-solid fa-house"></i>
@@ -735,18 +778,57 @@
         </div>
     </div>
 
+    <!-- LÓGICA DE INTERACCIÓN, ANIMACIÓN BUCLE Y VOZ -->
     <script>
+        // ANIMACIÓN DE TEXTO EN BUCLE PERMANENTE
+        document.addEventListener('DOMContentLoaded', () => {
+            const textoAnimado = "¡Ascensión, te quiero seguro!";
+            const contenedor = document.getElementById('typewriterText');
+            if (!contenedor) return;
+
+            const velocidadLetra = 55; // Velocidad de tipeo por letra (ms)
+            const tiempoPausa = 3000;  // Pausa con el texto completo visible (3 segundos)
+
+            function iniciarCicloTipeo() {
+                contenedor.innerHTML = ''; // Limpiar el texto anterior
+
+                // Crear los spans por letra
+                [...textoAnimado].forEach((char, index) => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.style.animationDelay = `${index * velocidadLetra}ms`;
+                    contenedor.appendChild(span);
+                });
+
+                // Tiempo total de tipeo + tiempo de espera antes del reinicio
+                const duracionTipeo = textoAnimado.length * velocidadLetra;
+                const tiempoTotalCiclo = duracionTipeo + tiempoPausa;
+
+                // Reiniciar el proceso en bucle continuo
+                setTimeout(iniciarCicloTipeo, tiempoTotalCiclo);
+            }
+
+            iniciarCicloTipeo();
+        });
+
+        // FUNCIONES MODALES
         function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function notificarLlamada(servicio) {
+        // VOZ / SÍNTESIS
+        function hablar(texto) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const mensaje = new SpeechSynthesisUtterance(`Llamando a ${servicio}`);
-                mensaje.lang = 'es-PE';
-                mensaje.rate = 1.0;
-                window.speechSynthesis.speak(mensaje);
+                const utterance = new SpeechSynthesisUtterance(texto);
+                utterance.lang = 'es-PE';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
             }
+        }
+
+        function notificarLlamada(servicio) {
+            hablar(`Llamando a ${servicio}`);
         }
 
         function cambiarPestana(idItem, idModal, abrir) {
@@ -762,6 +844,7 @@
             }
         }
 
+        // ENVIAR REPORTE ANÓNIMO
         function enviarReporteAnonimo(e) {
             e.preventDefault();
             const tipo = document.getElementById('tipoIncidencia').value;
@@ -777,6 +860,7 @@
             cerrarModal('modalAnonimo');
         }
 
+        // TICKER ROTATIVO
         const mensajesAlertas = [
             "Central Operativa 24/7 en línea",
             "Asistencia inmediata en zonas escolares",
@@ -791,20 +875,11 @@
             textoAlerta.innerText = mensajesAlertas[indiceMensaje];
         }, 4000);
 
-        function hablar(texto) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(texto);
-                utterance.lang = 'es-PE';
-                utterance.rate = 1.0;
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
         function leerAlertaActual() {
             hablar(textoAlerta.innerText);
         }
 
+        // BOTÓN WHATSAPP
         document.getElementById('btnWhatsapp').addEventListener('click', function() {
             hablar("Conectando con la central de serenazgo.");
             setTimeout(() => {
@@ -814,6 +889,7 @@
             }, 600);
         });
 
+        // COMPARTIR APP
         function ejecutarCompartir() {
             if (navigator.share) {
                 navigator.share({
@@ -828,6 +904,7 @@
 
         document.getElementById('btnGridCompartir').addEventListener('click', ejecutarCompartir);
 
+        // GPS BASE
         function abrirRutaGPS() {
             const baseLat = -12.780080;
             const baseLng = -74.986206;
@@ -842,6 +919,7 @@
             }
         }
 
+        // MANIFEST PWA
         const myManifest = {
             "name": "Serenazgo Ascensión",
             "short_name": "Serenazgo",
