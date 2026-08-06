@@ -109,7 +109,7 @@
         }
 
         .greeting-text h2 {
-            font-size: 1.02rem; /* Tamaño optimizado para encajar */
+            font-size: 1.02rem;
             font-weight: 800;
             color: #071527;
             line-height: 1.1;
@@ -163,7 +163,7 @@
             50% { opacity: 0; }
         }
 
-        /* BOTÓN DE ALERTA RÁPIDA */
+        /* BOTÓN DE ALERTA RÁPIDA (LLAMADA DIRECTA AL DEPAR) */
         .btn-quick-alert {
             background: linear-gradient(135deg, #ff4d6d 0%, #d90429 100%);
             color: var(--white);
@@ -183,6 +183,7 @@
             margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            text-decoration: none;
         }
 
         .btn-quick-alert:active {
@@ -460,10 +461,6 @@
             transition: background 0.2s;
         }
 
-        .emergency-item:active .btn-call-badge {
-            background: #e6b800;
-        }
-
         .anon-form {
             display: flex;
             flex-direction: column;
@@ -579,10 +576,10 @@
                 </div>
             </div>
 
-            <!-- Botón Principal Alerta Rápida -->
-            <button class="btn-quick-alert" onclick="cambiarPestana('navAyuda', 'modalEmergencias', true)">
+            <!-- Botón Principal: Alerta Rápida -> Llamada Directa de Emergencia -->
+            <a href="tel:959499459" class="btn-quick-alert" onclick="notificarLlamada('Alerta Rápida Serenazgo')">
                 <i class="fa-solid fa-lightbulb"></i> Alerta Rápida
-            </button>
+            </a>
 
             <!-- Ticker Informativo -->
             <div class="info-ticker" onclick="leerAlertaActual()">
@@ -597,7 +594,6 @@
 
             <!-- Grid 3x3 -->
             <div class="grid-container">
-                
                 <a href="tel:959499459" class="grid-card" onclick="notificarLlamada('Serenazgo Ascensión')">
                     <i class="fa-solid fa-phone-flip"></i>
                     <span>Llamar Serenazgo</span>
@@ -642,7 +638,6 @@
                     <i class="fa-solid fa-headset"></i>
                     <span>959 499 459</span>
                 </a>
-
             </div>
 
             <footer>
@@ -662,6 +657,7 @@
                 <span>Chat</span>
             </a>
             
+            <!-- Botón Ayuda -> Abre el Directorio Institucional/Emergencias -->
             <div class="nav-item" id="navAyuda" onclick="cambiarPestana('navAyuda', 'modalEmergencias', true)">
                 <i class="fa-solid fa-circle-info"></i>
                 <span>Ayuda</span>
@@ -669,7 +665,7 @@
         </div>
     </div>
 
-    <!-- MODAL DIRECTORIO DE EMERGENCIAS INTERACTIVO -->
+    <!-- MODAL DIRECTORIO DE EMERGENCIAS (AYUDA) -->
     <div class="modal-overlay" id="modalEmergencias">
         <div class="modal-card">
             <div class="modal-header">
@@ -783,7 +779,6 @@
         </div>
     </div>
 
-    <!-- LÓGICA Y ANIMACIÓN BUCLE PERMANENTE -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const textoAnimado = "¡Ascensión, te quiero seguro!";
