@@ -6,7 +6,7 @@
     <title>Seguridad Ciudadana - Ascensión</title>
     
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#023e8a">
+    <meta name="theme-color" content="#0a192f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" id="manifest-placeholder">
@@ -16,17 +16,16 @@
     
     <style>
         :root {
-            /* PALETA LIMPIA AZUL Y BLANCO */
-            --blue-primary: #023e8a;
-            --blue-header: #0077b6;
-            --blue-card: #0096c7;
-            --bg-app: #031b4e;
+            /* PALETA MUNICIPAL DE ASCENSIÓN (AZUL MARINO Y AMARILLO) */
+            --muni-blue-dark: #071527;
+            --muni-blue-mid: #0f2b48;
+            --muni-blue-card: #15385d;
+            --muni-yellow: #ffcc00;
+            --muni-yellow-glow: rgba(255, 204, 0, 0.25);
             --white: #ffffff;
-            --off-white: #f8fafc;
-            --text-sub: #caf0f8;
-            --red-alert: #d90429;
-            --red-glow: rgba(217, 4, 41, 0.4);
-            --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.15);
+            --off-white: #e2e8f0;
+            --red-alert: #e63946;
+            --red-glow: rgba(230, 57, 70, 0.4);
         }
 
         * {
@@ -38,8 +37,8 @@
         }
 
         body {
-            background-color: var(--bg-app);
-            background-image: radial-gradient(circle at 50% 0%, #0077b6 0%, #031b4e 80%);
+            background-color: var(--muni-blue-dark);
+            background-image: radial-gradient(circle at 50% 0%, #0f2b48 0%, #071527 85%);
             color: var(--white);
             min-height: 100vh;
             display: flex;
@@ -54,70 +53,73 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 18px 18px 85px 18px;
+            padding: 20px 18px 85px 18px;
             position: relative;
-            background: rgba(3, 27, 78, 0.6);
+            background: rgba(7, 21, 39, 0.75);
             backdrop-filter: blur(12px);
         }
 
-        /* CABECERA ESTILO TARJETA BLANCA MÓVIL */
-        .header-card {
-            background: #ffffff;
+        /* HEADER BLANCO ESTILIZADO CON FALLBACK SI NO HA CARGADO EL LOGO */
+        .user-header {
+            background: var(--white);
             border-radius: 20px;
-            padding: 14px 16px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             margin-bottom: 18px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            border-left: 5px solid var(--blue-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
-        .header-logo {
-            width: 48px;
-            height: 48px;
+        .muni-badge {
+            width: 44px;
+            height: 44px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--muni-blue-dark);
+            border-radius: 50%;
+            color: var(--muni-yellow);
+            font-size: 1.2rem;
+            overflow: hidden;
         }
 
-        .header-logo img {
+        .muni-badge img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        .header-text {
+        .greeting-text {
             display: flex;
             flex-direction: column;
         }
 
-        .muni-title {
-            font-size: 0.62rem;
+        .greeting-text small {
+            font-size: 0.65rem;
             font-weight: 800;
-            color: var(--blue-primary);
-            letter-spacing: 0.5px;
+            color: #0f2b48;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .header-text h1 {
-            font-size: 1.05rem;
+        .greeting-text h2 {
+            font-size: 1.15rem;
             font-weight: 800;
-            color: #0f172a;
-            margin: 2px 0;
-            line-height: 1.2;
+            color: #071527;
+            line-height: 1.1;
         }
 
-        .header-text p {
+        .greeting-text span {
             font-size: 0.72rem;
-            color: #64748b;
+            color: #475569;
             font-weight: 600;
         }
 
         /* BOTÓN DE ALERTA RÁPIDA (ROJO SEGURIDAD) */
         .btn-quick-alert {
-            background: linear-gradient(135deg, #ef233c 0%, #d90429 100%);
+            background: linear-gradient(135deg, #ff4d6d 0%, #d90429 100%);
             color: var(--white);
             border-radius: 30px;
             padding: 14px 20px;
@@ -129,17 +131,16 @@
             gap: 12px;
             cursor: pointer;
             box-shadow: 0 6px 20px var(--red-glow);
-            transition: all 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: none;
             width: 100%;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .btn-quick-alert:active {
             transform: scale(0.96);
-            box-shadow: 0 2px 10px var(--red-glow);
         }
 
         .btn-quick-alert i {
@@ -149,14 +150,14 @@
 
         @keyframes pulseIcon {
             0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.25); }
             100% { transform: scale(1); }
         }
 
-        /* BARRA INFORMATIVA INTERACTIVA */
+        /* TICKER INFORMATIVO */
         .info-ticker {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(21, 56, 93, 0.7);
+            border: 1px solid rgba(255, 204, 0, 0.3);
             border-radius: 14px;
             padding: 10px 14px;
             display: flex;
@@ -175,9 +176,9 @@
         .pulse-dot {
             width: 10px;
             height: 10px;
-            background: #00f5d4;
+            background: var(--muni-yellow);
             border-radius: 50%;
-            box-shadow: 0 0 10px #00f5d4;
+            box-shadow: 0 0 10px var(--muni-yellow);
             animation: pulseDot 1.8s infinite;
         }
 
@@ -189,20 +190,20 @@
 
         .info-ticker span {
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--white);
         }
 
-        /* ETIQUETA DE SECCIÓN */
         .section-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-sub);
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--muni-yellow);
             margin-bottom: 14px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
-        /* GRID 3X3 INTERACTIVO (AZUL Y BLANCO) */
+        /* GRID INTERACTIVO CON DETALLES AMARILLOS */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -211,8 +212,8 @@
         }
 
         .grid-card {
-            background: linear-gradient(145deg, #0077b6 0%, #023e8a 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(145deg, #183e68 0%, #0d2644 100%);
+            border: 1px solid rgba(255, 204, 0, 0.35);
             border-radius: 20px;
             padding: 16px 8px;
             display: flex;
@@ -221,32 +222,30 @@
             justify-content: center;
             text-decoration: none;
             color: var(--white);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.22s ease-in-out;
             text-align: center;
             cursor: pointer;
-            box-shadow: var(--shadow-card);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
 
         .grid-card:hover, .grid-card:active {
-            background: var(--white);
-            color: var(--blue-primary);
+            background: var(--muni-yellow);
+            color: var(--muni-blue-dark);
+            border-color: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 24px var(--muni-yellow-glow);
         }
 
-        /* ICONOS INTERACTIVOS CON ANIMACIONES */
         .grid-card i {
             font-size: 1.8rem;
             margin-bottom: 8px;
-            color: var(--white);
-            transition: all 0.3s ease;
+            color: var(--muni-yellow);
+            transition: all 0.25s ease;
         }
 
         .grid-card:hover i, .grid-card:active i {
-            color: var(--blue-primary);
-            transform: scale(1.15) rotate(-5deg);
+            color: var(--muni-blue-dark);
+            transform: scale(1.18) rotate(-5deg);
         }
 
         .grid-card span {
@@ -255,10 +254,15 @@
             line-height: 1.2;
         }
 
-        /* TARJETA DESTACADA LADA DIRECTA */
+        /* TARJETA DE EMERGENCIA DESTACADA */
         .grid-card.danger-card {
             background: linear-gradient(135deg, #d90429 0%, #8d0801 100%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 18px var(--red-glow);
+        }
+
+        .grid-card.danger-card i {
+            color: var(--white);
         }
 
         .grid-card.danger-card:hover, .grid-card.danger-card:active {
@@ -270,7 +274,7 @@
             color: var(--red-alert);
         }
 
-        /* BOTTOM NAV EN BLANCO / AZUL */
+        /* NAVEGACIÓN INFERIOR */
         .bottom-nav {
             position: absolute;
             bottom: 12px;
@@ -282,12 +286,12 @@
             justify-content: space-around;
             align-items: center;
             border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             z-index: 10;
         }
 
         .nav-item {
-            color: #94a3b8;
+            color: #64748b;
             text-decoration: none;
             display: flex;
             flex-direction: column;
@@ -299,7 +303,7 @@
         }
 
         .nav-item.active, .nav-item:active {
-            color: var(--blue-primary);
+            color: #0f2b48;
         }
 
         .nav-item i {
@@ -308,6 +312,7 @@
         }
 
         .nav-item.active i {
+            color: #0f2b48;
             transform: translateY(-2px);
         }
 
@@ -318,7 +323,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(3, 27, 78, 0.85);
+            background: rgba(7, 21, 39, 0.85);
             backdrop-filter: blur(8px);
             display: none;
             align-items: center;
@@ -356,7 +361,7 @@
 
         .modal-header h3 {
             font-size: 1.05rem;
-            color: var(--blue-primary);
+            color: #071527;
             font-weight: 800;
         }
 
@@ -397,7 +402,7 @@
             display: block;
             font-size: 0.82rem;
             font-weight: 700;
-            color: var(--blue-primary);
+            color: #0f2b48;
         }
 
         .item-info small {
@@ -408,8 +413,8 @@
         .item-num {
             font-size: 0.75rem;
             font-weight: 800;
-            color: var(--white);
-            background: var(--blue-primary);
+            color: #071527;
+            background: var(--muni-yellow);
             padding: 6px 12px;
             border-radius: 20px;
         }
@@ -452,9 +457,10 @@
 
         footer {
             font-size: 0.68rem;
-            color: var(--text-sub);
+            color: var(--off-white);
             text-align: center;
             font-weight: 600;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -462,15 +468,17 @@
 
     <div class="app-frame">
         <div>
-            <!-- Cabecera Limpia Estilo Tarjeta Blanca -->
-            <div class="header-card">
-                <div class="header-logo">
-                    <img src="{{ url_for('static', filename='img/escudo_ascension.png') }}" alt="Escudo Ascensión">
+            <!-- Banner Encabezado Oficial -->
+            <div class="user-header">
+                <div class="muni-badge">
+                    <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" 
+                         alt="Escudo" 
+                         onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fa-solid fa-shield-cat\'></i>';">
                 </div>
-                <div class="header-text">
-                    <span class="muni-title">Municipalidad Distrital de Ascensión</span>
-                    <h1>¡Ascensión, te quiero seguro!</h1>
-                    <p>Hola, Ciudadano • Central Operativa</p>
+                <div class="greeting-text">
+                    <small>Municipalidad Distrital de Ascensión</small>
+                    <h2>¡Ascensión, te quiero seguro!</h2>
+                    <span>Central de Operaciones Serenazgo</span>
                 </div>
             </div>
 
@@ -479,18 +487,18 @@
                 <i class="fa-solid fa-lightbulb"></i> Alerta Rápida
             </button>
 
-            <!-- Banner Informativo -->
+            <!-- Ticker Informativo con acento Amarillo -->
             <div class="info-ticker" onclick="leerAlertaActual()">
                 <div class="info-ticker-left">
                     <div class="pulse-dot"></div>
                     <span id="textoAlerta">Central Operativa 24/7 en línea</span>
                 </div>
-                <i class="fa-solid fa-volume-high" style="color: var(--white); font-size: 0.85rem;"></i>
+                <i class="fa-solid fa-volume-high" style="color: var(--muni-yellow); font-size: 0.85rem;"></i>
             </div>
 
             <div class="section-title">CATEGORÍAS DE SERVICIO</div>
 
-            <!-- Grid 3x3 Azul y Blanco con Iconos Interactivos -->
+            <!-- Grid 3x3 Azul y Amarillo -->
             <div class="grid-container">
                 
                 <a href="tel:959499459" class="grid-card">
@@ -513,12 +521,12 @@
                     <span>Reporte Anónimo</span>
                 </div>
 
-                <div class="grid-card" onclick="hablar('Patrullaje preventivo permanente en todo el distrito')">
+                <div class="grid-card" onclick="hablar('Patrullaje preventivo permanente en todo el distrito de Ascensión')">
                     <i class="fa-solid fa-shield-halved"></i>
                     <span>Patrullaje</span>
                 </div>
 
-                <div class="grid-card" onclick="hablar('Asistencia en zonas escolares de la jurisdicción')">
+                <div class="grid-card" onclick="hablar('Asistencia inmediata en zonas escolares del distrito')">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <span>Zona Escolar</span>
                 </div>
@@ -545,7 +553,7 @@
             </footer>
         </div>
 
-        <!-- Navegación Inferior (Blanco e Iconos Azules) -->
+        <!-- Navegación Inferior -->
         <div class="bottom-nav">
             <a href="#" class="nav-item active">
                 <i class="fa-solid fa-house"></i>
@@ -740,8 +748,8 @@
             "short_name": "Serenazgo",
             "start_url": ".",
             "display": "standalone",
-            "background_color": "#031b4e",
-            "theme_color": "#023e8a",
+            "background_color": "#071527",
+            "theme_color": "#071527",
             "icons": [{
                 "src": "https://cdn-icons-png.flaticon.com/512/2092/2092663.png",
                 "sizes": "512x512",
