@@ -3,727 +3,596 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Seguridad Ciudadana - Municipalidad Distrital de Ascensión</title>
+    <title>Seguridad Ciudadana - Ascensión</title>
     
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#0b2240">
+    <meta name="theme-color" content="#0d47a1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Serenazgo Ascensión">
     <link rel="manifest" id="manifest-placeholder">
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            /* COLORES OFICIALES MUNI ASCENSIÓN */
-            --muni-blue: #0b2240;
-            --muni-gold: #d4af37;
-            --muni-gold-bright: #ffcc00;
-            --glass-bg: rgba(11, 34, 64, 0.75);
-            --glass-border: rgba(212, 175, 55, 0.35);
-            --glass-hover: rgba(212, 175, 55, 0.2);
+            /* PALETA LIMPIA AZUL Y BLANCO */
+            --blue-primary: #023e8a;
+            --blue-header: #0077b6;
+            --blue-card: #0096c7;
+            --blue-card-hover: #03045e;
+            --bg-app: #031b4e;
+            --white: #ffffff;
+            --off-white: #f8fafc;
+            --text-sub: #caf0f8;
+            --red-alert: #d90429;
+            --red-glow: rgba(217, 4, 41, 0.4);
+            --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* FONDO PRINCIPAL AJUSTADO Y VISIBLE */
         body {
-            background: linear-gradient(180deg, rgba(7, 20, 38, 0.75) 0%, rgba(11, 34, 64, 0.85) 100%), 
-                        url("{{ url_for('static', filename='img/fondo_serenazgo.jpg') }}") no-repeat center center fixed;
-            background-size: cover;
-            color: #FFFFFF;
+            background-color: var(--bg-app);
+            background-image: radial-gradient(circle at 50% 0%, #0077b6 0%, #031b4e 80%);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-frame {
+            width: 100%;
+            max-width: 420px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 18px 85px 18px;
+            position: relative;
+            background: rgba(3, 27, 78, 0.6);
+            backdrop-filter: blur(12px);
+        }
+
+        /* HEADER DE SALUDO TIPO APP */
+        .user-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 15px;
+            margin-bottom: 18px;
         }
 
-        /* CONTENEDOR PRINCIPAL */
-        .container-formal {
-            width: 100%;
-            max-width: 460px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: auto;
-        }
-
-        /* ENCABEZADO INSTITUCIONAL */
-        .header-formal {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .header-logo {
-            width: 52px;
-            height: 52px;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
-        }
-
-        .header-titles {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header-titles h2 {
-            font-size: 0.82rem;
+        .greeting h2 {
+            font-size: 1.5rem;
             font-weight: 800;
-            letter-spacing: 0.5px;
+            color: var(--white);
+            letter-spacing: -0.3px;
+        }
+
+        .greeting p {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .muni-badge {
+            width: 44px;
+            height: 44px;
+            background: var(--white);
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .muni-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* BOTÓN DE ALERTA RÁPIDA (ROJO DE SEGURIDAD) */
+        .btn-quick-alert {
+            background: linear-gradient(135deg, #ef233c 0%, #d90429 100%);
+            color: var(--white);
+            border-radius: 30px;
+            padding: 14px 20px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px var(--red-glow);
+            transition: all 0.2s ease;
+            border: none;
+            width: 100%;
+            margin-bottom: 22px;
             text-transform: uppercase;
-            color: #FFFFFF;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 0.5px;
         }
 
-        .header-titles p {
-            font-size: 0.7rem;
-            color: var(--muni-gold-bright);
+        .btn-quick-alert:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 10px var(--red-glow);
+        }
+
+        .btn-quick-alert i {
+            font-size: 1.3rem;
+            animation: pulseIcon 1.5s infinite;
+        }
+
+        @keyframes pulseIcon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* ETIQUETA DE SECCIÓN */
+        .section-title {
+            font-size: 0.85rem;
             font-weight: 700;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            color: var(--text-sub);
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
         }
 
-        /* LEMA PRINCIPAL */
-        .main-title {
+        /* GRID 3X3 INTERACTIVO (AZUL Y BLANCO) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .grid-card {
+            background: linear-gradient(145deg, #0077b6 0%, #023e8a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 16px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
         }
 
-        .main-title h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            line-height: 1.15;
-            color: #FFFFFF;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+        .grid-card:hover, .grid-card:active {
+            background: var(--white);
+            color: var(--blue-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.25);
         }
 
-        .main-title .highlight {
-            color: var(--muni-gold-bright);
-            display: block;
-            text-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+        /* ICONOS INTERACTIVOS CON ANIMACIONES */
+        .grid-card i {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--white);
+            transition: all 0.3s ease;
         }
 
-        /* BANNER DINÁMICO */
-        .interactive-alert-box {
-            background: rgba(11, 34, 64, 0.8);
-            border: 1px solid var(--glass-border);
+        .grid-card:hover i, .grid-card:active i {
+            color: var(--blue-primary);
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        .grid-card span {
+            font-size: 0.72rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* TARJETA DESTACADA LADA DIRECTA */
+        .grid-card.danger-card {
+            background: linear-gradient(135deg, #d90429 0%, #8d0801 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .grid-card.danger-card:hover, .grid-card.danger-card:active {
+            background: var(--white);
+            color: var(--red-alert);
+        }
+
+        .grid-card.danger-card:hover i, .grid-card.danger-card:active i {
+            color: var(--red-alert);
+        }
+
+        /* BARRA INFORMATIVA INTERACTIVA */
+        .info-ticker {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 14px;
             padding: 10px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
+            margin-bottom: 20px;
             cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        .interactive-alert-box:active {
-            transform: scale(0.98);
-            background: rgba(212, 175, 55, 0.25);
-        }
-
-        .alert-left-content {
+        .info-ticker-left {
             display: flex;
             align-items: center;
             gap: 10px;
-            overflow: hidden;
         }
 
-        .live-dot {
-            width: 9px;
-            height: 9px;
-            background-color: #00FF7F;
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: #00f5d4;
             border-radius: 50%;
-            box-shadow: 0 0 10px #00FF7F;
-            animation: pulseDot 1.5s infinite;
-            flex-shrink: 0;
+            box-shadow: 0 0 10px #00f5d4;
+            animation: pulseDot 1.8s infinite;
         }
 
         @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
         }
 
-        .dynamic-text {
-            font-size: 0.76rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .info-ticker span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--white);
         }
 
-        .speaker-hint {
-            font-size: 0.8rem;
-            color: var(--muni-gold-bright);
-            flex-shrink: 0;
-        }
-
-        /* BOTÓN DE DIRECTORIO */
-        .btn-directory {
-            background: linear-gradient(135deg, #FFCC00, #D4AF37);
-            color: #0B2240;
-            border-radius: 16px;
-            padding: 13px;
-            font-weight: 900;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        /* BOTTOM NAV CON ESTILO BLANCO / AZUL */
+        .bottom-nav {
+            position: absolute;
+            bottom: 12px;
+            left: 18px;
+            right: 18px;
+            height: 64px;
+            background: var(--white);
             display: flex;
+            justify-content: space-around;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 204, 0, 0.4);
-            transition: all 0.25s ease;
-            border: 1.5px solid #FFFFFF;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10;
         }
 
-        .btn-directory:active {
-            transform: scale(0.97);
-        }
-
-        /* TARJETAS TRANSPARENTES */
-        .card-transparent {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
+        .nav-item {
+            color: #94a3b8;
             text-decoration: none;
-            color: #FFFFFF;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.65rem;
+            gap: 3px;
+            font-weight: 700;
+            transition: all 0.2s;
         }
 
-        .card-transparent:hover, .card-transparent:active {
-            background: var(--glass-hover);
-            border-color: var(--muni-gold-bright);
+        .nav-item.active, .nav-item:active {
+            color: var(--blue-primary);
+        }
+
+        .nav-item i {
+            font-size: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item.active i {
             transform: translateY(-2px);
         }
 
-        .card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--muni-gold-bright);
-            flex-shrink: 0;
-        }
-
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            flex-grow: 1;
-        }
-
-        .card-title {
-            font-size: 0.9rem;
-            font-weight: 800;
-        }
-
-        .card-desc {
-            font-size: 0.7rem;
-            color: #CBD5E1;
-            font-weight: 500;
-        }
-
-        /* FILA INFERIOR */
-        .bottom-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .phone-card-wrapper {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .time-badge {
-            align-self: center;
-            background: rgba(34, 197, 94, 0.25);
-            border: 1px solid rgba(34, 197, 94, 0.6);
-            color: #4ADE80;
-            font-size: 0.63rem;
-            font-weight: 800;
-            padding: 3px 10px;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            backdrop-filter: blur(4px);
-        }
-
-        .phone-card {
-            background: rgba(11, 34, 64, 0.95);
-            border: 1.5px solid var(--muni-gold-bright);
-            border-radius: 16px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--muni-gold-bright);
-            font-size: 1.1rem;
-            font-weight: 900;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.25);
-        }
-
-        .share-card {
-            flex: 1;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            height: 100%;
-        }
-
-        .share-count {
-            font-size: 0.85rem;
-            font-weight: 900;
-            color: #00F2FE;
-        }
-
-        .share-label {
-            font-size: 0.58rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #A0AEC0;
-        }
-
-        /* MODALES CON FONDO TRASLÚCIDO QUE MUESTRA EL FONDO PRINCIPAL */
+        /* MODALES */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(3, 10, 22, 0.55); /* TRASLÚCIDO SUAVE */
-            backdrop-filter: blur(6px); /* EFECTO DE DESENFOQUE ELEGANTE */
-            -webkit-backdrop-filter: blur(6px);
+            background: rgba(3, 27, 78, 0.85);
+            backdrop-filter: blur(8px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            padding: 15px;
+            padding: 18px;
         }
 
         .modal-card {
-            background: rgba(11, 34, 64, 0.92);
-            border: 2px solid var(--muni-gold-bright);
+            background: var(--white);
+            color: #0f172a;
             border-radius: 24px;
             width: 100%;
-            max-width: 440px;
-            padding: 20px;
-            box-shadow: 0 0 35px rgba(255, 204, 0, 0.3), 0 20px 50px rgba(0, 0, 0, 0.9);
+            max-width: 380px;
+            padding: 22px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
+            gap: 14px;
+            animation: modalSlide 0.25s ease-out;
         }
 
-        @keyframes modalPop {
-            from { transform: scale(0.88); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        @keyframes modalSlide {
+            from { transform: translateY(15px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 2px solid #e2e8f0;
             padding-bottom: 10px;
         }
 
         .modal-header h3 {
-            font-size: 1rem;
-            color: var(--muni-gold-bright);
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.05rem;
+            color: var(--blue-primary);
+            font-weight: 800;
         }
 
         .close-modal {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #FFFFFF;
+            background: #f1f5f9;
+            border: none;
+            color: #64748b;
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            font-size: 1.1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            font-weight: 800;
         }
 
-        .close-modal:active {
-            background: rgba(255, 77, 77, 0.8);
-        }
-
-        .emergency-grid {
+        .emergency-list {
             display: flex;
             flex-direction: column;
-            gap: 9px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding-right: 2px;
+            gap: 10px;
         }
 
         .emergency-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 14px;
-            padding: 10px 12px;
+            padding: 12px;
             text-decoration: none;
-            color: #FFFFFF;
-            transition: all 0.2s ease;
+            color: #0f172a;
         }
 
         .emergency-item:active {
-            background: rgba(212, 175, 55, 0.2);
-            transform: scale(0.98);
-        }
-
-        .item-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .item-icon-box {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
+            background: #e2e8f0;
         }
 
         .item-info span {
             display: block;
             font-size: 0.82rem;
-            font-weight: 800;
+            font-weight: 700;
+            color: var(--blue-primary);
         }
 
         .item-info small {
-            font-size: 0.65rem;
-            color: #A0AEC0;
+            font-size: 0.68rem;
+            color: #64748b;
         }
 
-        .item-num-btn {
-            font-size: 0.8rem;
-            font-weight: 900;
-            color: #FFFFFF;
-            background: linear-gradient(135deg, #FF3B30, #DC2626);
-            padding: 7px 12px;
+        .item-num {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--white);
+            background: var(--blue-primary);
+            padding: 6px 12px;
             border-radius: 20px;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            white-space: nowrap;
         }
 
-        /* REPORTE ANÓNIMO FORMULARIO */
         .anon-form {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+            gap: 12px;
         }
 
         .form-group label {
             font-size: 0.72rem;
             font-weight: 700;
-            color: #CBD5E1;
+            color: #475569;
+            margin-bottom: 4px;
+            display: block;
         }
 
         .form-input, .form-select, .form-textarea {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--glass-border);
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             border-radius: 10px;
-            padding: 9px 11px;
-            color: #FFFFFF;
-            font-size: 0.78rem;
+            padding: 10px;
+            color: #0f172a;
+            font-size: 0.82rem;
             outline: none;
         }
 
-        .form-select option {
-            background: #0b2240;
-            color: #FFFFFF;
-        }
-
-        .file-upload-btn {
-            background: rgba(255, 204, 0, 0.1);
-            border: 1px dashed var(--muni-gold-bright);
-            color: var(--muni-gold-bright);
-            padding: 9px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 0.72rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
         .btn-submit-anon {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: #FFFFFF;
+            background: #25d366;
+            color: var(--white);
             border: none;
-            padding: 11px;
+            padding: 12px;
             border-radius: 12px;
-            font-weight: 900;
-            font-size: 0.82rem;
+            font-weight: 800;
+            font-size: 0.85rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            text-transform: uppercase;
         }
 
         footer {
             font-size: 0.68rem;
-            color: #CBD5E1;
+            color: var(--text-sub);
             text-align: center;
-            margin-top: 15px;
             font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
     </style>
 </head>
 <body>
 
-    <div class="container-formal">
-        
-        <!-- Encabezado Institucional -->
-        <div class="header-formal">
-            <img class="header-logo" src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Escudo Ascensión">
-            <div class="header-titles">
-                <h2>Municipalidad Distrital de Ascensión</h2>
-                <p>Gestión 2023 - 2026</p>
-            </div>
-        </div>
-
-        <!-- Lema Principal -->
-        <div class="main-title">
-            <h1>¡Ascensión, <span class="highlight">te quiero seguro!</span></h1>
-        </div>
-
-        <!-- BANNER INTERACTIVO -->
-        <div class="interactive-alert-box" onclick="leerAlertaActual()">
-            <div class="alert-left-content">
-                <div class="live-dot"></div>
-                <span class="dynamic-text" id="textoAlerta">Central Operativa 24/7 en línea</span>
-            </div>
-            <i class="fa-solid fa-volume-high speaker-hint"></i>
-        </div>
-
-        <!-- Botón Directorio Completo -->
-        <button class="btn-directory" onclick="abrirModal('modalEmergencias')">
-            <i class="fa-solid fa-phone-volume"></i> Ver Todos los Números de Emergencia
-        </button>
-
-        <!-- Tarjeta 1: Guardar Contacto -->
-        <a href="{{ url_for('descargar_contacto') }}" class="card-transparent">
-            <div class="card-icon">
-                <i class="fa-solid fa-address-book"></i>
-            </div>
-            <div class="card-content">
-                <span class="card-title">Guardar en Contactos</span>
-                <span class="card-desc">Descarga la credencial oficial en tu celular</span>
-            </div>
-        </a>
-
-        <!-- Tarjeta 2: Reporte Anónimo -->
-        <div class="card-transparent" onclick="abrirModal('modalAnonimo')" style="border-color: rgba(0, 242, 254, 0.4);">
-            <div class="card-icon" style="color: #00F2FE; background: rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.3);">
-                <i class="fa-solid fa-user-ninja"></i>
-            </div>
-            <div class="card-content">
-                <span class="card-title">Reporte Anónimo 100%</span>
-                <span class="card-desc">Denuncia incidencias sin exponer tu identidad</span>
-            </div>
-        </div>
-
-        <!-- Tarjeta 3: WhatsApp Directo -->
-        <div class="card-transparent" id="btnWhatsapp">
-            <div class="card-icon" style="color: #25D366; background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.3);">
-                <i class="fa-brands fa-whatsapp"></i>
-            </div>
-            <div class="card-content">
-                <span class="card-title">Atención por WhatsApp</span>
-                <span class="card-desc">Asistencia inmediata y confiable 24/7</span>
-            </div>
-        </div>
-
-        <!-- Tarjeta 4: GPS -->
-        <div class="card-transparent" onclick="abrirRutaGPS()">
-            <div class="card-icon" style="color: #FF4D4D; background: rgba(255, 77, 77, 0.15); border-color: rgba(255, 77, 77, 0.3);">
-                <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div class="card-content">
-                <span class="card-title">Ubicación GPS Central</span>
-                <span class="card-desc">Ruta en Google Maps hacia la base de Serenazgo</span>
-            </div>
-        </div>
-
-        <!-- Fila Inferior con Indicador de Tiempo de Respuesta -->
-        <div class="bottom-actions">
-            <div class="phone-card-wrapper">
-                <div class="time-badge">
-                    <i class="fa-solid fa-stopwatch"></i> Llegada prom.: 5 min
+    <div class="app-frame">
+        <div>
+            <!-- Encabezado de Usuario -->
+            <div class="user-header">
+                <div class="greeting">
+                    <h2>Hola, Ciudadano</h2>
+                    <p>¡Ascensión te quiero seguro!</p>
                 </div>
-                <a href="tel:959499459" class="phone-card">
-                    <i class="fa-solid fa-phone-volume"></i>
+                <div class="muni-badge">
+                    <img src="{{ url_for('static', filename='img/logo_serenazgo_ascension.png') }}" alt="Escudo Ascensión">
+                </div>
+            </div>
+
+            <!-- Botón Principal de Alerta Rápida -->
+            <button class="btn-quick-alert" onclick="abrirModal('modalEmergencias')">
+                <i class="fa-solid fa-lightbulb"></i> Alerta Rápida
+            </button>
+
+            <!-- Banner Informativo -->
+            <div class="info-ticker" onclick="leerAlertaActual()">
+                <div class="info-ticker-left">
+                    <div class="pulse-dot"></div>
+                    <span id="textoAlerta">Central Operativa 24/7 en línea</span>
+                </div>
+                <i class="fa-solid fa-volume-high" style="color: var(--white); font-size: 0.85rem;"></i>
+            </div>
+
+            <div class="section-title">CATEGORÍAS DE SERVICIO</div>
+
+            <!-- Grid 3x3 Azul y Blanco con Iconos Interactivos -->
+            <div class="grid-container">
+                
+                <a href="tel:959499459" class="grid-card">
+                    <i class="fa-solid fa-phone-flip"></i>
+                    <span>Llamar Serenazgo</span>
+                </a>
+
+                <div class="grid-card" id="btnWhatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp Central</span>
+                </div>
+
+                <div class="grid-card" onclick="abrirRutaGPS()">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Base GPS</span>
+                </div>
+
+                <div class="grid-card" onclick="abrirModal('modalAnonimo')">
+                    <i class="fa-solid fa-user-secret"></i>
+                    <span>Reporte Anónimo</span>
+                </div>
+
+                <div class="grid-card" onclick="hablar('Patrullaje preventivo permanente en todo el distrito')">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Patrullaje</span>
+                </div>
+
+                <div class="grid-card" onclick="hablar('Asistencia en zonas escolares de la jurisdicción')">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Zona Escolar</span>
+                </div>
+
+                <a href="{{ url_for('descargar_contacto') }}" class="grid-card">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>Guardar Contacto</span>
+                </a>
+
+                <div class="grid-card" id="btnGridCompartir">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>Compartir App</span>
+                </div>
+
+                <a href="tel:959499459" class="grid-card danger-card">
+                    <i class="fa-solid fa-headset"></i>
                     <span>959 499 459</span>
                 </a>
+
             </div>
 
-            <div class="share-card" id="btnCompartir">
-                <i class="fa-solid fa-share-nodes" style="color: #00F2FE; font-size: 0.9rem; margin-bottom: 2px;"></i>
-                <span class="share-count" id="countDisplay">144</span>
-                <span class="share-label">Compartidos</span>
-            </div>
+            <footer>
+                Centro de Videovigilancia y Serenazgo &copy; 2026
+            </footer>
         </div>
 
-        <footer>
-            Centro de Videovigilancia y Serenazgo &copy; 2026 - Ascensión, Perú
-        </footer>
-
+        <!-- Navegación Inferior (Blanco e Iconos Azules) -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="https://wa.me/51959499459" class="nav-item">
+                <i class="fa-solid fa-comments"></i>
+                <span>Chat</span>
+            </a>
+            <a href="javascript:abrirModal('modalEmergencias')" class="nav-item">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Ayuda</span>
+            </a>
+        </div>
     </div>
 
-    <!-- MODAL DIRECTORIO COMPLETO -->
+    <!-- MODAL DIRECTORIO DE EMERGENCIAS -->
     <div class="modal-overlay" id="modalEmergencias">
         <div class="modal-card">
             <div class="modal-header">
-                <h3><i class="fa-solid fa-shield-halved" style="color: var(--muni-gold-bright);"></i> Números de Emergencia</h3>
+                <h3>Directorio de Emergencias</h3>
                 <button class="close-modal" onclick="cerrarModal('modalEmergencias')">&times;</button>
             </div>
 
-            <div class="emergency-grid">
+            <div class="emergency-list">
                 <a href="tel:959499459" class="emergency-item">
-                    <div class="item-left">
-                        <div class="item-icon-box" style="background: rgba(255, 204, 0, 0.15); color: #FFCC00; border: 1px solid rgba(255, 204, 0, 0.3);">
-                            <i class="fa-solid fa-shield-cat"></i>
-                        </div>
-                        <div class="item-info">
-                            <span>Serenazgo Ascensión</span>
-                            <small>Atención 24 Horas</small>
-                        </div>
+                    <div class="item-info">
+                        <span>Serenazgo Ascensión</span>
+                        <small>Central 24 Horas</small>
                     </div>
-                    <span class="item-num-btn"><i class="fa-solid fa-phone"></i> 959 499 459</span>
+                    <span class="item-num">959 499 459</span>
                 </a>
 
                 <a href="tel:980122631" class="emergency-item">
-                    <div class="item-left">
-                        <div class="item-icon-box" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3);">
-                            <i class="fa-solid fa-building-shield"></i>
-                        </div>
-                        <div class="item-info">
-                            <span>Policía Nacional del Perú</span>
-                            <small>Emergencias PNP</small>
-                        </div>
+                    <div class="item-info">
+                        <span>Policía Nacional (PNP)</span>
+                        <small>Emergencias Policiales</small>
                     </div>
-                    <span class="item-num-btn"><i class="fa-solid fa-phone"></i> 980 122 631</span>
+                    <span class="item-num">980 122 631</span>
                 </a>
 
                 <a href="tel:952901202" class="emergency-item">
-                    <div class="item-left">
-                        <div class="item-icon-box" style="background: rgba(249, 115, 22, 0.15); color: #FB923C; border: 1px solid rgba(249, 115, 22, 0.3);">
-                            <i class="fa-solid fa-person-shelter"></i>
-                        </div>
-                        <div class="item-info">
-                            <span>Defensa Civil Ascensión</span>
-                            <small>Gestión de Riesgos</small>
-                        </div>
+                    <div class="item-info">
+                        <span>Defensa Civil</span>
+                        <small>Gestión de Riesgos</small>
                     </div>
-                    <span class="item-num-btn"><i class="fa-solid fa-phone"></i> 952 901 202</span>
+                    <span class="item-num">952 901 202</span>
                 </a>
 
                 <a href="tel:943276474" class="emergency-item">
-                    <div class="item-left">
-                        <div class="item-icon-box" style="background: rgba(34, 197, 94, 0.15); color: #4ADE80; border: 1px solid rgba(34, 197, 94, 0.3);">
-                            <i class="fa-solid fa-kit-medical"></i>
-                        </div>
-                        <div class="item-info">
-                            <span>Centro de Salud Ascensión</span>
-                            <small>Atención Médica Local</small>
-                        </div>
+                    <div class="item-info">
+                        <span>Centro de Salud</span>
+                        <small>Atención Médica Local</small>
                     </div>
-                    <span class="item-num-btn"><i class="fa-solid fa-phone"></i> 943 276 474</span>
+                    <span class="item-num">943 276 474</span>
                 </a>
 
                 <a href="tel:116" class="emergency-item">
-                    <div class="item-left">
-                        <div class="item-icon-box" style="background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.3);">
-                            <i class="fa-solid fa-fire-extinguisher"></i>
-                        </div>
-                        <div class="item-info">
-                            <span>Compañía de Bomberos</span>
-                            <small>Central Nacional</small>
-                        </div>
+                    <div class="item-info">
+                        <span>Bomberos</span>
+                        <small>Central Nacional</small>
                     </div>
-                    <span class="item-num-btn"><i class="fa-solid fa-phone"></i> 116</span>
-                </a>
-
-                <a href="tel:106" class="emergency-item">
-                    <div class="item-left">
-                        <div class="item-icon-box" style="background: rgba(168, 85, 247, 0.15); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3);">
-                            <i class="fa-solid fa-truck-medical"></i>
-                        </div>
-                        <div class="item-info">
-                            <span>SAMU</span>
-                            <small>Ambulancia y Salud</small>
-                        </div>
-                    </div>
-                    <span class="item-num-btn"><i class="fa-solid fa-phone"></i> 106</span>
+                    <span class="item-num">116</span>
                 </a>
             </div>
         </div>
@@ -733,7 +602,7 @@
     <div class="modal-overlay" id="modalAnonimo">
         <div class="modal-card">
             <div class="modal-header">
-                <h3><i class="fa-solid fa-user-ninja" style="color: #00F2FE;"></i> Denuncia Anónima</h3>
+                <h3>Reporte Anónimo</h3>
                 <button class="close-modal" onclick="cerrarModal('modalAnonimo')">&times;</button>
             </div>
 
@@ -741,52 +610,34 @@
                 <div class="form-group">
                     <label>Tipo de Incidencia:</label>
                     <select class="form-select" id="tipoIncidencia" required>
-                        <option value="Vehículo Sospechoso / Personas Extrañas">🚗 Vehículo / Personas Sospechosas</option>
-                        <option value="Venta de Alcohol a Menores">🍺 Venta de Alcohol a Menores</option>
-                        <option value="Luminaria / Alumbrado Malogrado">💡 Alumbrado Público Malogrado</option>
-                        <option value="Ruidos Molestos / Fiestas No Autorizadas">🔊 Ruidos Molestos / Fiestas</option>
-                        <option value="Acumulación de Basura / Limpieza">🗑️ Acumulación de Basura</option>
-                        <option value="Otro tipo de Incidencia">⚠️ Otro Tipo de Incidencia</option>
+                        <option value="Vehículo Sospechoso / Personas Extrañas">Persona / Vehículo Sospechoso</option>
+                        <option value="Venta de Alcohol a Menores">Venta de Alcohol a Menores</option>
+                        <option value="Luminaria Malograda">Alumbrado Público Malogrado</option>
+                        <option value="Ruidos Molestos">Ruidos Molestos / Fiestas</option>
+                        <option value="Otro">Otro Tipo de Incidencia</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Ubicación Referencial (Calle/Barrio):</label>
-                    <input type="text" class="form-input" id="ubicacionAnon" placeholder="Ej: Av. Principal / Jr. Comercio" required>
+                    <label>Ubicación Referencial:</label>
+                    <input type="text" class="form-input" id="ubicacionAnon" placeholder="Ej: Calle o Barrio" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Detalle o Descripción:</label>
-                    <textarea class="form-textarea" id="detalleAnon" rows="3" placeholder="Describe brevemente lo que sucede..." required></textarea>
-                </div>
-
-                <div class="file-upload-btn" onclick="document.getElementById('fileInput').click()">
-                    <i class="fa-solid fa-camera"></i> <span id="fileName">Adjuntar Foto/Video/Audio (Opcional)</span>
-                    <input type="file" id="fileInput" style="display:none" onchange="mostrarNombreArchivo(this)">
+                    <label>Descripción:</label>
+                    <textarea class="form-textarea" id="detalleAnon" rows="3" placeholder="Detalla lo sucedido..." required></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit-anon">
-                    <i class="fa-brands fa-whatsapp"></i> Enviar Denuncia Confidencial
+                    <i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp
                 </button>
             </form>
         </div>
     </div>
 
     <script>
-        // GESTIÓN DE MODALES
-        function abrirModal(id) {
-            document.getElementById(id).style.display = 'flex';
-        }
-        function cerrarModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        // ENVIAR REPORTE ANÓNIMO POR WHATSAPP
-        function mostrarNombreArchivo(input) {
-            if(input.files && input.files[0]) {
-                document.getElementById('fileName').innerText = "📷 " + input.files[0].name;
-            }
-        }
+        function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
 
         function enviarReporteAnonimo(e) {
             e.preventDefault();
@@ -794,22 +645,19 @@
             const ubi = document.getElementById('ubicacionAnon').value;
             const det = document.getElementById('detalleAnon').value;
 
-            let mensaje = `🚨 *REPORTE ANÓNIMO DE CIUDADANO*%0A`;
+            let mensaje = `🚨 *REPORTE ANÓNIMO*%0A`;
             mensaje += `📌 *Tipo:* ${tipo}%0A`;
             mensaje += `📍 *Ubicación:* ${ubi}%0A`;
-            mensaje += `📝 *Detalle:* ${det}%0A%0A`;
-            mensaje += `_(Adjuntaré foto/audio en este chat si es necesario)_`;
+            mensaje += `📝 *Detalle:* ${det}%0A`;
 
             window.open(`https://wa.me/51959499459?text=${mensaje}`, '_blank');
             cerrarModal('modalAnonimo');
         }
 
-        // BANNER ROTATIVO Y VOZ
         const mensajesAlertas = [
-            "🔴 Central Operativa 24/7 en línea",
-            "🛡️ Asistencia inmediata en zonas escolares",
-            "🚨 Ante cualquier emergencia, toca aquí para escuchar",
-            "📹 Monitoreo por cámaras en tiempo real"
+            "Central Operativa 24/7 en línea",
+            "Asistencia inmediata en zonas escolares",
+            "Monitoreo constante de seguridad"
         ];
 
         let indiceMensaje = 0;
@@ -818,7 +666,7 @@
         setInterval(() => {
             indiceMensaje = (indiceMensaje + 1) % mensajesAlertas.length;
             textoAlerta.innerText = mensajesAlertas[indiceMensaje];
-        }, 3500);
+        }, 4000);
 
         function hablar(texto) {
             if ('speechSynthesis' in window) {
@@ -831,50 +679,38 @@
         }
 
         function leerAlertaActual() {
-            const textoLimpio = textoAlerta.innerText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
-            hablar(textoLimpio);
+            hablar(textoAlerta.innerText);
         }
 
-        // WHATSAPP CON VOZ
         document.getElementById('btnWhatsapp').addEventListener('click', function() {
-            hablar("¡Ascensión te quiere seguro! Conectando con la central.");
+            hablar("Conectando con la central de serenazgo.");
             setTimeout(() => {
                 const numero = "51959499459";
-                const msj = encodeURIComponent("Hola, necesito reportar una emergencia desde mi ubicación.");
+                const msj = encodeURIComponent("Hola, necesito solicitar asistencia desde mi ubicación.");
                 window.open(`https://wa.me/${numero}?text=${msj}`, '_blank');
-            }, 1000);
+            }, 600);
         });
 
-        // CONTADOR DE COMPARTIDOS
-        let compartidos = localStorage.getItem('total_shares') ? parseInt(localStorage.getItem('total_shares')) : 144;
-        document.getElementById('countDisplay').innerText = compartidos;
-
-        document.getElementById('btnCompartir').addEventListener('click', function() {
-            compartidos++;
-            document.getElementById('countDisplay').innerText = compartidos;
-            localStorage.setItem('total_shares', compartidos);
-
+        function ejecutarCompartir() {
             if (navigator.share) {
                 navigator.share({
                     title: 'Serenazgo Ascensión',
-                    text: '¡Ascensión te quiero seguro! Contacto rápido de emergencias.',
+                    text: '¡Ascensión te quiero seguro!',
                     url: window.location.href
                 }).catch(() => {});
             } else {
-                alert("¡Enlace copiado! Compártelo con tus vecinos.");
+                alert("¡Enlace copiado al portapapeles!");
             }
-        });
+        }
 
-        // GPS
+        document.getElementById('btnGridCompartir').addEventListener('click', ejecutarCompartir);
+
         function abrirRutaGPS() {
             const baseLat = -12.780080;
             const baseLng = -74.986206;
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    const userLat = position.coords.latitude;
-                    const userLng = position.coords.longitude;
-                    window.open(`https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${baseLat},${baseLng}&travelmode=driving`, '_blank');
+                    window.open(`https://www.google.com/maps/dir/?api=1&origin=${position.coords.latitude},${position.coords.longitude}&destination=${baseLat},${baseLng}&travelmode=driving`, '_blank');
                 }, function() {
                     window.open(`https://maps.google.com/?q=${baseLat},${baseLng}`, '_blank');
                 });
@@ -883,25 +719,22 @@
             }
         }
 
-        // GENERACIÓN DINÁMICA DE MANIFEST PWA
         const myManifest = {
             "name": "Serenazgo Ascensión",
             "short_name": "Serenazgo",
             "start_url": ".",
             "display": "standalone",
-            "background_color": "#0b2240",
-            "theme_color": "#0b2240",
-            "description": "Plataforma de Seguridad Ciudadana de la Municipalidad Distrital de Ascensión",
+            "background_color": "#031b4e",
+            "theme_color": "#0d47a1",
             "icons": [{
                 "src": "https://cdn-icons-png.flaticon.com/512/2092/2092663.png",
                 "sizes": "512x512",
                 "type": "image/png"
             }]
         };
-        const stringManifest = JSON.stringify(myManifest);
-        const blob = new Blob([stringManifest], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(blob);
-        document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+        const blob = new Blob([JSON.stringify(myManifest)], {type: 'application/json'});
+        document.getElementById('manifest-placeholder').setAttribute('href', URL.createObjectURL(blob));
     </script>
 </body>
 </html>
+
